@@ -1,0 +1,41 @@
+    <!-- Here in index.html you should put only the layout that is shared among all the screens (e.g. header
+    ,footer, etc.). The rest of the view specific layout will go into the html partials (check partials folder) -->
+
+    <!-- ng-view Angular directive is where the partials will be loaded. app.js configures the $routingProvider
+    where you specify which partial should be loaded when. -->
+    <div class="container">
+    <div class="col-md-3">
+        <h2>Edit playlist</h2>
+        <form method="GET" ng-controller="EditPlaylistCtrl">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+            </div>
+            <div class="form-group">
+                <label>Select a mood: </label>
+                <select class="form-control" ng-model="moodList">
+                    <option value="energetic">Energetic</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="chill">Chill</option>
+                    <option value="sleepy">Sleepy</option>
+                    <option value="party">Party</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Select a genre: </label>
+                <select class="form-control" ng-model="genreList">
+                    <option value="rock">Rock</option>
+                    <option value="pop">Pop</option>
+                    <option value="electro">Electro</option>
+                    <option value="acoustic">Acoustic</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+            </div>
+            <p>Ordered by: {{moodList}}</p>
+        </form>
+
+    </div>
+    </div>
