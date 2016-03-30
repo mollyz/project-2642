@@ -1,0 +1,39 @@
+body{
+	background-color: #fff;
+	color:#85BC00;
+}
+
+#playlist-div{
+	margin-left:10px;
+	margin-bottom:10px;
+	height:170px;
+	width:170px;
+	background-color: #ccc;
+	display: inline-block;
+	overflow: hidden;
+}
+#playlist-div-1{
+	float:left;
+	height:50%;
+	width:50%;
+	background-color: #00ff00;
+}
+#playlist-div-2{
+	float:right;
+	height:50%;
+	width:50%;
+	background-color: #0000ff;
+}
+#playlist-div-3{
+	float:left;
+	height:50%;
+	width:50%;
+	background-color: #ff0000;
+}
+#playlist-div-4{
+	float:right;
+	height:50%;
+	width:50%;
+	background-color: #fff000;
+}
+
