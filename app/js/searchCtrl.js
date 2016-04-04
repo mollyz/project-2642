@@ -18,8 +18,10 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
 	   	});
 	*/
   }
+  $scope.search();
 
-  $scope.getQuerystring = function () {
+
+  /*$scope.getQuerystring = function() {
   	console.log("foooo");
   	var grant_type = "authorization_code";
   	var code = Playlist.getQueryString('code');
@@ -50,9 +52,9 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
     function(data, status){
         alert("Data: " + data + "\nStatus: " + status);
     });
-*/
-	}
 
+	}
+*/
 
 
 });
