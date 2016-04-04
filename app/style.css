@@ -3,15 +3,39 @@ body{
 	color:#85BC00;
 }
 
+#header{
+	height:50px;
+	color:white;
+	background-color: #000;
+}
+
+#log-in{
+	font-size: 18px;
+	line-height: 50px;
+}
+
 #playlist-div{
 	margin-left:10px;
 	margin-bottom:10px;
 	height:170px;
 	width:170px;
 	background-color: #ccc;
+	background-size: 100%;
 	display: inline-block;
 	overflow: hidden;
 }
+
+#playlist-div-span{
+	color: #fff;
+	text-align: center;
+	width:100%;
+	line-height:40px;
+	margin-top: 130px;
+	background-color: rgba(0,0,0,0.7);
+	display:block;
+	font-size: 16px;
+}
+
 #playlist-div-1{
 	float:left;
 	height:50%;
