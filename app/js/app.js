@@ -35,7 +35,7 @@ var playlistApp = angular.module('playlist', ['ngRoute','ngResource','ngCookies'
 // 'http://localhost:8000/#/dish/12345'. The 12345 value will be stored in a dishId parameter, which we can
 // then access through $routeParams service. More information on this in the dishCtrl.js 
 playlistApp.config(['$routeProvider',
-  function($routeProvider) {
+  function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/home', {
         templateUrl: 'partials/home.html'
@@ -44,9 +44,13 @@ playlistApp.config(['$routeProvider',
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
       }).
-      when('/dish/:dishId', {
-        templateUrl: 'partials/dish.html',
-        controller: 'DishCtrl'
+      when('/callback', {
+        templateUrl: 'partials/callback.html',
+        controller: 'CallbackCtrl'
+      }).
+      when('/playlist/:playlistId/:playlistUserId', {
+        templateUrl: 'partials/editPlaylist.html',
+        controller: 'EditPlaylistCtrl'
       }).
       when('/editPlaylist', {
         templateUrl: 'partials/editPlaylist.html',
