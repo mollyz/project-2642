@@ -3,10 +3,10 @@
 
     <!-- ng-view Angular directive is where the partials will be loaded. app.js configures the $routingProvider
     where you specify which partial should be loaded when. -->
-    <div class="container">
+    <div class="container" ng-controller="EditPlaylistCtrl">
     <div class="col-md-3">
         <h2>Edit playlist</h2>
-        <form method="GET" ng-controller="EditPlaylistCtrl">
+        <form method="GET">
             <div class="form-group">
                 <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
                 <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
@@ -37,5 +37,20 @@
             <p>Ordered by: {{moodList}}</p>
         </form>
 
+    </div>
+    <div class="col-md-9">
+    <div id="player-div"></div>
+    <table class="table table-striped">
+        <thead>
+                <td>Artist</td>
+                <td>Track</td>        
+        </thead>
+        <tbody>
+            <tr ng-repeat="key in playlist">
+                <td>{{key.track.artists[0].name}}</td>
+                <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
+            </tr>
+        </tbody>
+    </table>    
     </div>
     </div>
