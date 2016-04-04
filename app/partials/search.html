@@ -1,10 +1,15 @@
-<div class="container" ng-init="getQuerystring()">
+<ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
+<div class="container">
 	<div class="col-md-12" class="home" ng-controller="SearchCtrl">
 		<h1>Search:</h1>
 		<a class="btn btn-primary" ng-click="search()">Search</a>
 		<a href="#/editPlaylist" class="btn btn-primary">Edit Playlist</a>
-      <h2>oAuth info</h2>
-      <p>{{access_token}}</p>
+		<form>
+		<div class="form-group">
+                <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword(s)">
+      	</div>
+      	</form>
+      <h2>Playlists:</h2>
 	</div>
 	<div class="col-md-12" id="results"></div>
 </div>
