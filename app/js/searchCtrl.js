@@ -5,6 +5,8 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
   	console.log("search");
   	$scope.playlists = Playlist.getUserPlaylists(Playlist.getAccessToken());
   	console.log($scope.playlists);
+
+
   	/*
   	Playlist.PlaylistSearch.get(function(data){
 	    $scope.playlists=data.Results;
@@ -17,6 +19,35 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
 	    $scope.status = "There was an error";
 	   	});
 	*/
+  }
+
+  $scope.searchGenre = function(genre){
+    var query = genre;
+    //console.log(query);
+    $.ajax({
+      type: 'POST',
+      url: 'getplaylistfromgenre.php',
+      dataType: 'json',
+      data: {Genre:query},
+      success: function(result){
+        //console.log("result");
+        //console.log(result);
+        var array = []
+        for(key in result){
+          array.push(result[key].id);
+        }
+        //console.log(array);
+        Playlist.getPlaylist(array,genre);
+        Playlist.searchPlaylists(genre);
+
+
+      },
+      error: function(){
+        console.log("ERROOOORRR");
+
+      }
+
+    });
   }
   $scope.search();
 
