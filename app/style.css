@@ -1,12 +1,32 @@
 body{
-	background-color: #fff;
+	background-color: #222;
 	color:#85BC00;
+}
+
+#home-screen{
+	margin-top: 150px;
+	text-align: center;
+	color:#fff;
+}
+
+.login-btn{
+	font-size: 24px;
+	width:50%;
+	height:50px;
+	background-color:#85BC00;
+	border-color: #000;
+}
+
+.login-btn:hover {
+	width:50%;
+	height:50px;
+	background-color:#85BC99;
 }
 
 #header{
 	height:50px;
 	color:white;
-	background-color: #000;
+	background-color: #444;
 }
 
 #log-in{
@@ -36,28 +56,10 @@ body{
 	font-size: 16px;
 }
 
-#playlist-div-1{
-	float:left;
-	height:50%;
-	width:50%;
-	background-color: #00ff00;
-}
-#playlist-div-2{
-	float:right;
-	height:50%;
-	width:50%;
-	background-color: #0000ff;
-}
-#playlist-div-3{
-	float:left;
-	height:50%;
-	width:50%;
-	background-color: #ff0000;
-}
-#playlist-div-4{
-	float:right;
-	height:50%;
-	width:50%;
-	background-color: #fff000;
+#player-div{
+	background-color: #000;
+	overflow: hidden;
+	padding-top:10px;
+	text-align: center;
 }
 
