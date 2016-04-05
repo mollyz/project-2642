@@ -18,16 +18,39 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		Playlist.getPlaylistTracks(playlistId).then(function(data){
 				$scope.playlist=data;
 			});
+	}
 
+	$scope.getMeta = function(playlistId){
+		var id=$scope.playlistId;
+		$.ajax({
+			type: 'POST',
+			url: 'getplaylist.php',
+			dataType: 'json',
+			data: {Id:id},
+			success: function(result){
+				var data=result;
+				$scope.mood=result.mood;
+				$scope.genre=result.genre;
+				console.log("META: "+result);
+
+			},
+			error: function(){
+				$scope.mood="No meta found!";
+				$scope.genre="No meta found!";
+
+			}
+
+		});
 	}
 
 	$scope.getPlayer = function(playlistId,playlistUserId){
 		$("#player-div").html("");
-		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="600" height="380" frameborder="0" allowtransparency="true"></iframe>';
+		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
 		$("#player-div").append(playerHtml);
 	}
 
 	$scope.insert = function(id,mood,genre,keywords){
+		var id=$scope.playlistId;
 		console.log("insert");
 		$.ajax({
 			type: 'POST',
@@ -43,7 +66,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		});
 
 	}
-
+	$scope.getMeta($scope.playlistId);
 	$scope.getPlayer($scope.playlistId,$scope.playlistUserId);
 	$scope.getTracks($scope.playlistId);
 });
