@@ -2,8 +2,10 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
   var accessToken = "";
   var userName = "";
+  var playlists = [];
   //var dishes = [];
 
+  //gets all the playlists of the current user
   this.getUserPlaylists = function(accessToken) {
     $.ajax({
       url: 'https://api.spotify.com/v1/users/ledzappa/playlists?limit=50',
@@ -13,11 +15,12 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
      },
      dataType: 'json',
      success: function(result){
-      $("#results").html("");
+      $("#results").html("<h3>Your playlists:</h3>");
 
-      var result = result.items;
-      for (key in result){
-       var playlist = result[key];
+      playlists = result.items;
+      console.log(playlists);
+      for (key in playlists){
+       var playlist = playlists[key];
            /* for (key in playlist.images){
               var image = playlist.images[key]
               console.log(image.url);
@@ -30,58 +33,71 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       });
   }
 
-  /*this.getPlaylistTracks = function(playlistid) {
+  this.searchPlaylists = function(query) {
+    console.log("search playlisssttssss"+query)
     $.ajax({
-      url: 'https://api.spotify.com/v1/users/ledzappa/playlists/'+playlistid+'/tracks',
+      url: 'https://api.spotify.com/v1/search?q='+query+'&type=playlist&market=SE',
       headers: {
        'Authorization': 'Bearer ' + this.getAccessToken()
 
      },
      dataType: 'json',
      success: function(result){
+      var sgPlaylists = result.playlists.items;
+      console.log(result.playlists.items);
+      $("#results-suggested").html("<h3>You might also like: </h3>");
+      for (key in sgPlaylists){
+       var sgPlaylist = sgPlaylists[key];
+           /* for (key in playlist.images){
+              var image = playlist.images[key]
+              console.log(image.url);
+            }*/
+            $("#results-suggested").append("<div id='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"'><span id='playlist-div-span'>"+sgPlaylist.name+"</span></a></div>");
+          }
 
-      var result = result.items;
-      var name = result["1"].track.name;
-      console.log(name);
-      return name;
-    }
-    
-  });
+          return result.items;
+        }
+      });
   }
-  */
-	/*this.getUserData = function(accessToken) {
-        $.ajax({
-            url: 'https://api.spotify.com/v1/me',
-            headers: {
-               'Authorization': 'Bearer ' + accessToken               
-            },
-            dataType: 'json',
-            success: function(result){
-      console.log("Playlists:"+ result);
-    }
-        });
-      }*/
 
+    //get playlist from an array with id's created in the search-ctrl
+    this.getPlaylist = function(idArray,genre) {
+    //console.log(idArray);
+    $("#results").html("<h3>Your playlists tagged as "+genre+":</h3>");
+    for (key in playlists){
+       var playlist = playlists[key];
+       if(jQuery.inArray(playlist.id, idArray) !== -1)
+           /* for (key in playlist.images){
+              var image = playlist.images[key]
+              console.log(image.url);
+            }*/
+            $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
+          }
+  }
+
+      //gets user info of the current user
       this.getUserData = function(){
         $http({
           method: 'GET',
           url: 'https://api.spotify.com/v1/me',
           headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
         }).then(function successCallback(response) {
-// this callback will be called asynchronously
-// when the response is available
-var data = response.data;
-var name = data.display_name;
-userName = name;
-console.log(data.display_name);
-$cookieStore.put("userid", data.id);
-return name;
-}, function errorCallback(response) {
-// called asynchronously if an error occurs
-// or server returns response with an error status.
-});
-      }
+        // this callback will be called asynchronously
+        // when the response is available
+        var data = response.data;
+        var name = data.display_name;
+        userName = name;
+        console.log(data.display_name);
+        $cookieStore.put("userid", data.id);
+        return name;
+        }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        });
+              }
 
+
+    //get all tracks within a certain playlist
    this.getPlaylistTracks = function(playlistid){
       return $http({
       method: 'GET',
@@ -99,7 +115,7 @@ return name;
       });
     }
 
-
+    //get the "codestring" that spotify returns in the url after successful login
     this.getQueryString = function(name, url) {
      console.log("halleluja");
      if (!url) url = window.location.href;
