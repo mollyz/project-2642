@@ -7,8 +7,9 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
   //gets all the playlists of the current user
   this.getUserPlaylists = function(accessToken) {
+    var username = 
     $.ajax({
-      url: 'https://api.spotify.com/v1/users/ledzappa/playlists?limit=50',
+      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
       headers: {
        'Authorization': 'Bearer ' + accessToken
 
@@ -150,6 +151,12 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
  this.getUserName = function(){
   return $cookieStore.get("userData");
+}
+
+this.getUserId = function(){
+  var userdata = $cookieStore.get("userData");
+  var userId = userdata[0];
+  return userId;
 }
 
 
