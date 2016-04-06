@@ -33,6 +33,8 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       });
   }
 
+  //searches for "global"-playlists that we can suggest to the user
+  //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
     console.log("search playlisssttssss"+query)
     $.ajax({
@@ -61,6 +63,8 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
 
     //get playlist from an array with id's created in the search-ctrl
+    //the id's are taken from the database, this in order to display
+    //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
     this.getPlaylist = function(idArray,genre) {
     //console.log(idArray);
     $("#results").html("<h3>Your playlists tagged as "+genre+":</h3>");
@@ -86,9 +90,10 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         // when the response is available
         var data = response.data;
         var name = data.display_name;
-        userName = name;
-        console.log(data.display_name);
-        $cookieStore.put("userid", data.id);
+        var userData = [];
+        console.log("image url "+data.images[0].url);
+        userData.push(data.id,data.display_name,data.images[0].url);
+        $cookieStore.put("userData", userData);
         return name;
         }, function errorCallback(response) {
         // called asynchronously if an error occurs
@@ -144,7 +149,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
  }
 
  this.getUserName = function(){
-  return $cookieStore.get("userid");
+  return $cookieStore.get("userData");
 }
 
 
