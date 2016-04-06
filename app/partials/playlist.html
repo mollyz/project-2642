@@ -1,0 +1,201 @@
+<div class="container" id="playlistDetail" class="col-md-11">
+ 
+<link rel="stylesheet" href="../bootstrap.min.css">
+<link rel="stylesheet" href="../style.css">
+<style type="text/css">
+	body{
+        background: #f4f4f4;
+        margin: 0px;
+        width: 100%;
+    }
+    p{
+        font-family: Helvetica;
+        margin: 10px;
+    }
+    #playlistPic{
+    	height: 320px;
+        width: 100%;
+    }
+	#playlistPicture.commentAvatarDiv{
+		width: 320px;
+		height: 320px;
+		padding:2px;
+		background: #ececec;
+		border-radius:320px;
+		box-shadow: 0px 0px 1px rgba(0,0,0,0.4);
+		-moz-border-radius: 320px;
+		-webkit-border-radius: 320px;
+	}
+
+	#playlistPic.commentAvatarImage{
+		width:320px;
+		height:320px;
+		line-height: 0;	/* remove line-height */ 
+		display: inline-block;	/* circle wraps image */
+		border-radius: 50%;	/* relative value */
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		transition: linear 0.25s;
+	}
+
+	.floating-box {
+    float: left;
+    margin: 30px;
+    border-radius: 50%;
+	width: 100px;
+	height: 100px; 
+	font-size: 18pt;
+	text-align: center;
+	background-color: blue;
+	border: 2px;
+	}
+    .hwq2button {  
+    display: inline-block;  
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
+    *display: inline;  
+    vertical-align: baseline;  
+    margin: 0 2px;  
+    outline: none;  
+    cursor: pointer;  
+    text-align: center;  
+    text-decoration: none;  
+    font: 14px/100% Arial, Helvetica, sans-serif;  
+    padding: .5em 2em .55em;  
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);  
+    -webkit-border-radius: .5em;  
+    -moz-border-radius: .5em;  
+    border-radius: .5em;  
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+	}  
+	.hwq2button:hover {  
+        text-decoration: none;  
+    }  
+
+    .hwq2button:active {  
+        position: relative;  
+        top: 1px;  
+    }  
+
+	.bigrounded {  
+    	-webkit-border-radius: 2em;  
+    	-moz-border-radius: 2em;  
+    border-radius: 2em;  
+	}  
+    .white {  
+    color: #606060;  
+    border: solid 1px #b7b7b7;  
+    background: #fff;  
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));  
+    background: -moz-linear-gradient(top, #fff, #ededed);  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
+}  
+
+    .white:hover {  
+        background: #ededed;  
+        background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));  
+        background: -moz-linear-gradient(top, #fff, #dcdcdc);  
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');  
+    }  
+
+    .white:active {  
+        color: #999;  
+        background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));  
+        background: -moz-linear-gradient(top, #ededed, #fff);  
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');  
+    }  
+
+
+	table{
+        width: 100%;
+        text-align: center;
+        font-size: 20px; 
+        border-collapse: collapse;
+    	border-spacing: 0;
+    	table-layout: fixed;
+    }
+    td{
+        padding: 10px;
+    }
+	 #songlistTable {
+	       border: 1px solid #d9d9d9;表格外边框颜色*/
+	    }
+	 #songlistTable tbody tr td {
+	        font-family: "lucida grande", verdana, sans-serif;
+	        font-size: 16pt;
+	        padding: 3px 8px;
+	        border-left: 1px solid #D9D9D9;/*边框色*/
+	    }
+	 #songlistTable tbody tr.selected td {
+	        background-color: #3d80df;/*被选择的行颜色*/
+	        color: #ffffff;
+	        font-weight: bold;
+	        border-left: 1px solid #346DBE;
+	        border-bottom: 1px solid #7DAAEA;
+	    }
+	 #searchArea{
+        background: grey;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+</style>
+
+   	<div class="row">
+	   	<div class="col-md-4" id="playlistPicture" >
+	   		<img id="playlistPic" src="../playlistpicture.jpg" >
+	   	</div>
+	   
+		<div class="col-md-8">
+	         <div id="basicInfo">
+	            <h2>playlistname</h2>
+	            <br>
+	            <p>djldjlf jljelj ljbekl jla;lheoim n kaldn khsnekj bsikebjghabjg ,hgdn len lsneu nknalble kjndbkie nks ksjh tmecje j sem j mslem ks. jdjldjlf jljelj ljbekl jla;lheoim n kaldn khsnekj bsikebjghabjg ,hgdn len lsneu nknalble kjndbkie nks ksjh tmecje j sem j mslem ks</p>
+	            <br>
+	            <p>created by XXX</p>
+	            <br>
+	            <div id="playlistTag">
+	            	<div class="hwq2button white bigrounded">Rock</div>
+	            	<div class="hwq2button white bigrounded">Filghting</div>
+	            	<div class="hwq2button white bigrounded">Janpanese</div>
+	            </div>
+	         </div>
+         </div>
+	        
+	        <hr>
+	        <div id="songList">
+				<table id="songlistTable" >
+				    <thead>
+				    	<tr>
+				    		<td class="col-md-4" >NAME</td>
+				    		<td class="col-md-1">ARTIST</td>
+				    		<td class="col-md-2">ALBUM</td>
+				    	</tr>
+				    </thead>
+				    <tbody>
+				        <tr>
+				            <td class="col-md-4">The beginning</td>
+				            <td class="col-md-1">ONE OK ROCK</td>
+				            <td class="col-md-2">The beginning</td>
+				        </tr>
+				    </tbody>
+				    <tbody>
+				        <tr class="selected">
+				            <td>The beginning</td>
+				            <td>ONE OK ROCK</td>
+				            <td>The beginning</td>
+				        </tr>
+				    </tbody>
+				</table>
+			</div>
+			
+			<hr>
+			<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aspotifydiscover%3Aplaylist%3A32wnaCxJ4ISoo67SQqgUS2" width="640" height="720" frameborder="0" allowtransparency="true"></iframe>
+			<hr>
+			
+			<div id="searchArea">
+				<h2>Add new song to this playlist</h2>
+				<input type="search" name="search" id="searchNewSong" placeholder="Search by name/aritist/album">
+				<button>Search</button>
+			</div>
+</div>
