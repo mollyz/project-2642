@@ -49,6 +49,8 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
 
     });
   }
+
+  Playlist.getUserData();
   $scope.search();
 
 
