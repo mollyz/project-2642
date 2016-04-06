@@ -3,6 +3,12 @@ body{
 	color:#85BC00;
 }
 
+.form-control{
+	background-color: #000;
+	color:#fff;
+	border-color:#aaa;
+}
+
 #home-screen{
 	margin-top: 150px;
 	text-align: center;
@@ -24,14 +30,27 @@ body{
 }
 
 #header{
-	height:50px;
+	height:60px;
 	color:white;
-	background-color: #444;
+	background-color: #000;
+	border-bottom-style: solid;
+	border-bottom-color: #fff;
+	border-bottom-width: 1px;
+}
+
+.profile-pic{
+	display:inline-block;
+	height:85%;
+	margin-right:10px;
+	margin-top: 0px;
+	margin-bottom: 5px;
 }
 
 #log-in{
-	font-size: 18px;
-	line-height: 50px;
+	height:55px;
+	display:inline-block;
+	font-size: 16px;
+	line-height: 60px;
 }
 
 #playlist-div{
