@@ -36,30 +36,39 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
     
     var query2 = mood;
     //console.log(query);
-    $.ajax({
-      type: 'POST',
-      url: 'getplaylistfrommood.php',
-      dataType: 'json',
-      data: {Mood:query2},
-      success: function(result){
-        console.log("result");
-        console.log(result);
-        var array2 = []
-        for(key in result){
-          array2.push(result[key].id);
+    if(query2=="allMood"){
+
+      Playlist.getAllPlaylists();
+
+    }else{
+
+
+      $.ajax({
+        type: 'POST',
+        url: 'getplaylistfrommood.php',
+        dataType: 'json',
+        data: {Mood:query2},
+        success: function(result){
+          console.log("result");
+          console.log(result);
+          var array2 = []
+          for(key in result){
+            array2.push(result[key].id);
+          }
+          
+          
+          $scope.playlists = Playlist.getPlaylist(array2,"mood",mood);
+          $scope.playlistsSug = Playlist.searchPlaylists(mood);
+
+
+        },
+        error: function(){
+          console.log("ERROOOORRR");
+
         }
-        //console.log(array);
-        Playlist.getPlaylist(array2,"mood",mood);
-        Playlist.searchPlaylists(mood);
 
-
-      },
-      error: function(){
-        console.log("ERROOOORRR");
-
-      }
-
-    });
+      });
+    }
     
   }
 
@@ -68,31 +77,39 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
           Playlist.setGenreImgUrl(genre);
 
     var query = genre;
-    //console.log(query);
-    $.ajax({
-      type: 'POST',
-      url: 'getplaylistfromgenre.php',
-      dataType: 'json',
-      data: {Genre:query},
-      success: function(result){
-        console.log("result");
-        console.log(result);
-        var array = []
-        for(key in result){
-          array.push(result[key].id);
+
+    if(query=="allGenre"){
+
+      Playlist.getAllPlaylists();
+
+    }else{
+   
+      //console.log(query);
+      $.ajax({
+        type: 'POST',
+        url: 'getplaylistfromgenre.php',
+        dataType: 'json',
+        data: {Genre:query},
+        success: function(result){
+          console.log("result");
+          console.log(result);
+          var array = []
+          for(key in result){
+            array.push(result[key].id);
+          }
+          //console.log(array);
+          $scope.playlists = Playlist.getPlaylist(array,"genre",genre);
+          $scope.playlistsSug = Playlist.searchPlaylists(genre);
+
+
+        },
+        error: function(){
+          console.log("ERROOOORRR");
+
         }
-        //console.log(array);
-        Playlist.getPlaylist(array,"genre",genre);
-        Playlist.searchPlaylists(genre);
 
-
-      },
-      error: function(){
-        console.log("ERROOOORRR");
-
-      }
-
-    });
+      });
+    }
   }
   Playlist.getUserData();
   $scope.search();

@@ -8,7 +8,14 @@
 
 <div class="container" ng-controller="EditPlaylistCtrl">
     <style type="text/css">
+        .FollowBtn{
+            text-align: right;
+        }
+
         .followButton{
+
+
+            
           line-height:50px;
           height:50px;
           width:150px;
@@ -86,10 +93,7 @@
             background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
             filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
         }
-        #playlistPic{
-            height: 80px;
-            width: 100%;
-        }
+        
         .hwq2button {  
     display: inline-block;  
     zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
@@ -146,27 +150,37 @@
         background: -moz-linear-gradient(top, #ededed, #fff);  
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');  
     }  
+        .playlistPic{
+            width: 60%;
+        }
+       .playlistPic:hover{
+            width: 90%;
+        }
+
+        .sideList{
+            overflow: scroll;
+            height: 790px;
+        }
     </style>
     <div class="col-md-2">
     <br>
        <a href='#search' class='BackButton'>Search</a> 
        <hr>
-       <img id="playlistPic" src="../playlistpicture.jpg">
-       <p>playlistname</p>
-       <br>
-       <img id="playlistPic" src="../playlistpicture.jpg">
-       <p>playlistname</p>
-       <br>
-       <img id="playlistPic" src="../playlistpicture.jpg">
-       <p>playlistname</p>
+       <div class="sideList">
+           <div  ng-repeat="item in playlistArrow">
+               <img  class="playlistPic"ng-src="{{item.images[0].url}}">
+               <p>{{item.name}}</p>
+                <br>
+           </div>
+       </div>
     </div>
 
     <div class= "col-md-10">
         <div class="col-md-4">
-             <br>
-             <a href='#' class='followButton'>Follow this playlist</a>
-             <br>
-            <h2>Metal Talks| Amon Amarth</h2>
+            <h2>Metal Talks</h2>
+            <h4 style="text-align: right;">| Amon Amarth</h4>
+
+            <hr>
                 <p>In the 14th episode of Metal Talks: Johan Hegg from Amon Amath! Follow this playlist and catch all the episodes! Listen to all our metal playlists,</p>
                 <p>Created by Sptify Metal Talks</p>
                 <br>
@@ -207,7 +221,16 @@
                 </div>
         </div>
         <div class="col-md-7">
+            <br>
+            <br>
+            <div class="FollowBtn">
+                <a href='#' class='followButton' ng-click="followPlaylist()">Follow this playlist</a>
+            </div>
+            <br>
             <div id="player-div"></div>
+            <br>
+             
+
             <table class="table table-striped">
                 <thead>
                         <td>Artist</td>

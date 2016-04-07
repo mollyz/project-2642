@@ -10,6 +10,10 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   console.log("playlistID"+$scope.playlistId);
     console.log("playlistUSERID"+$scope.playlistUserId);
 
+    $scope.playlistArrow=Playlist.getAllPlaylists();
+
+
+
 
   //$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
   //$apply();

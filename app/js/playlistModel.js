@@ -5,6 +5,9 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var playlists = [];
   //var dishes = [];
 
+
+
+  //Mockup of Knobs
   var moodImg={"energetic":"img/Energetic.jpg"
             ,"romantic":"img/Romantic.jpg"
           ,"chill":"img/Chill.jpg"
@@ -48,9 +51,12 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
 
 
+
+
+
   //gets all the playlists of the current user
   this.getUserPlaylists = function(accessToken) {
-    var username = 
+    //var username = 
     $.ajax({
       url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
       headers: {
@@ -71,11 +77,13 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
             }*/
             $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
           }
-
+          
           return result.items;
         }
       });
   }
+
+
 
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
@@ -100,11 +108,15 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
             }*/
             $("#results-suggested").append("<div id='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"'><span id='playlist-div-span'>"+sgPlaylist.name+"</span></a></div>");
           }
-
+          
           return result.items;
         }
       });
   }
+
+    this.getAllPlaylists=function(){
+      return playlists;
+    }
 
     //get playlist from an array with id's created in the search-ctrl
     //the id's are taken from the database, this in order to display
@@ -167,7 +179,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
    this.getPlaylistTracks = function(playlistid){
       return $http({
       method: 'GET',
-      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists/'+playlistid+'/tracks',
+      url: 'https://api.spotify.com/v1/users/'+this.getUserName2()+'/playlists/'+playlistid+'/tracks',
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
     }).then(function(response) {
       // this callback will be called asynchronously
@@ -217,6 +229,11 @@ this.getUserId=function(){
   var userdata=$cookieStore.get("userData");
   var userId=userdata[0];
   return userId;
+}
+this.getUserName2=function(){
+  var userdata=$cookieStore.get("userData");
+  var userName=userdata[1];
+  return userName;
 }
 
 

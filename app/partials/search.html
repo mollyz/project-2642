@@ -13,15 +13,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
         <form>
 		<div class="form-group">
                 <label>Select a mood: </label>
@@ -50,7 +41,21 @@
       	</div>
       	</form>
 	</div>
-	<div class="col-md-12" id="results"></div>
+	<div class="col-md-12" id="results">
+<!--        <h3>Your playlists:</h3>
+
+        <div ng-repeat="item in playlists">
+
+            <div id='playlist-div' ng-style='background-image: {{item.images[0].url}};'>
+                <a ng-href="#/playlist/'+{{item.id}}+'/'+{{item.owner.id}}'">
+                <span id='playlist-div-span'>{{item.name}}</span>
+                </a>
+            </div>
+
+        </div>-->
+
+
+    </div>
 	<div class="col-md-12" id="results-suggested"></div>
 
 </div>
