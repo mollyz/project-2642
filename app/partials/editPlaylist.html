@@ -3,59 +3,223 @@
 
     <!-- ng-view Angular directive is where the partials will be loaded. app.js configures the $routingProvider
     where you specify which partial should be loaded when. -->
-    <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
+<ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 
-    <div class="container" ng-controller="EditPlaylistCtrl">
-    <div class="col-md-3">
-        <h2>Edit playlist</h2>
-        <form method="GET">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
-                <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
-            </div>
-            <div class="form-group">
-                <label>Select a mood: </label>
-                <select class="form-control" ng-model="moodList">
-                    <option value="energetic">Energetic</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="chill">Chill</option>
-                    <option value="sleepy">Sleepy</option>
-                    <option value="party">Party</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Select a genre: </label>
-                <select class="form-control" ng-model="genreList">
-                    <option value="rock">Rock</option>
-                    <option value="pop">Pop</option>
-                    <option value="electro">Electro</option>
-                    <option value="acoustic">Acoustic</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
-            </div>
-            <p>Mood: {{mood}}</p>
-            <p>Genre: {{genre}}</p>
 
-        </form>
+<div class="container" ng-controller="EditPlaylistCtrl">
+    <style type="text/css">
+        .followButton{
+          line-height:50px;
+          height:50px;
+          width:150px;
+          color:#ffffff;
+          background-color:#3ba354;
+          font-size:16px;
+          font-weight:normal;
+          font-family:Arial;
+          border:1px solid #dcdcdc;
+          -webkit-border-top-left-radius:8px;
+          -moz-border-radius-topleft:8px;
+          border-top-left-radius:8px;
+          -webkit-border-top-right-radius:8px;
+          -moz-border-radius-topright:8px;
+          border-top-right-radius:8px;
+          -webkit-border-bottom-left-radius:8px;
+          -moz-border-radius-bottomleft:8px;
+          border-bottom-left-radius:8px;
+          -webkit-border-bottom-right-radius:8px;
+          -moz-border-radius-bottomright:8px;
+          border-bottom-right-radius:8px;
+          -moz-box-shadow:1px 1px 2px 1px #ffffff;
+          -webkit-box-shadow:1px 1px 2px 1px #ffffff;
+          box-shadow:1px 1px 2px 1px #ffffff;
+          text-align:center;
+          display:inline-block;
+          text-decoration:none;
+        }
+        .followButton:hover{
+          background-color:#1c9439;
+        }
+        .BackButton{ 
+            line-height:40px;
+            height:40px;
+            width:80px;
+            color:#ffffff;
+            background-color:#ededed;
+            font-size:17px;
+            font-weight:bold;
+            font-family:Arial;
+            background:-webkit-gradient(linear, left top, left bottom, color-start(0.05, #599bb3), color-stop(1, #408c99));
+            background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+            background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+            border:0px solid #dcdcdc;
+            -webkit-border-top-left-radius:8px;
+            -moz-border-radius-topleft:8px;
+            border-top-left-radius:8px;
+            -webkit-border-top-right-radius:8px;
+            -moz-border-radius-topright:8px;
+            border-top-right-radius:8px;
+            -webkit-border-bottom-left-radius:8px;
+            -moz-border-radius-bottomleft:8px;
+            border-bottom-left-radius:8px;
+            -webkit-border-bottom-right-radius:8px;
+            -moz-border-radius-bottomright:8px;
+            border-bottom-right-radius:8px;
+            -moz-box-shadow:0px 10px 14px -7px #276873;
+            -webkit-box-shadow:0px 10px 14px -7px #276873;
+            box-shadow:0px 10px 14px -7px #276873;
+            text-align:center;
+            display:inline-block;
+            text-decoration:none;
+        }
+        .BackButton:hover {
+            background-color:#f5f5f5;
+            background:-webkit-gradient(linear, left top, left bottom, color-start(0.05, #408c99), color-stop(1, #599bb3));
+            background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+            background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
+        }
+        #playlistPic{
+            height: 80px;
+            width: 100%;
+        }
+        .hwq2button {  
+    display: inline-block;  
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
+    *display: inline;  
+    vertical-align: baseline;  
+    margin: 0 2px;  
+    outline: none;  
+    cursor: pointer;  
+    text-align: center;  
+    text-decoration: none;  
+    font: 14px/100% Arial, Helvetica, sans-serif;  
+    padding: .5em 2em .55em;  
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);  
+    -webkit-border-radius: .5em;  
+    -moz-border-radius: .5em;  
+    border-radius: .5em;  
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    }  
+    .hwq2button:hover {  
+        text-decoration: none;  
+    }  
 
+    .hwq2button:active {  
+        position: relative;  
+        top: 1px;  
+    }  
+
+    .bigrounded {  
+        -webkit-border-radius: 2em;  
+        -moz-border-radius: 2em;  
+        border-radius: 2em;  
+    }  
+    .white {  
+    color: #606060;  
+    border: solid 1px #b7b7b7;  
+    background: #fff;  
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));  
+    background: -moz-linear-gradient(top, #fff, #ededed);  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
+}  
+
+    .white:hover {  
+        background: #ededed;  
+        background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));  
+        background: -moz-linear-gradient(top, #fff, #dcdcdc);  
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');  
+    }  
+
+    .white:active {  
+        color: #999;  
+        background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));  
+        background: -moz-linear-gradient(top, #ededed, #fff);  
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');  
+    }  
+    </style>
+    <div class="col-md-1">
+    <br>
+       <a href='#' class='BackButton'>Search</a> 
+       <hr>
+       <img id="playlistPic" src="../playlistpicture.jpg">
+       <p>playlistname</p>
+       <br>
+       <img id="playlistPic" src="../playlistpicture.jpg">
+       <p>playlistname</p>
+       <br>
+       <img id="playlistPic" src="../playlistpicture.jpg">
+       <p>playlistname</p>
     </div>
-    <div class="col-md-9">
-    <h2>Edit playlist</h2>
-    <div id="player-div"></div>
-    <table class="table table-striped">
-        <thead>
-                <td>Artist</td>
-                <td>Track</td>        
-        </thead>
-        <tbody>
-            <tr ng-repeat="key in playlist">
-                <td>{{key.track.artists[0].name}}</td>
-                <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
-            </tr>
-        </tbody>
-    </table>    
+
+    <div class= "col-md-11">
+        <div class="col-md-3">
+             <br>
+             <a href='#' class='followButton'>Follow this playlist</a>
+             <br>
+            <h2>Metal Talks| Amon Amarth</h2>
+                <p>In the 14th episode of Metal Talks: Johan Hegg from Amon Amath! Follow this playlist and catch all the episodes! Listen to all our metal playlists,</p>
+                <p>Created by Sptify Metal Talks</p>
+                <br>
+                <p>MOOD <div class="hwq2button white bigrounded">{{mood}}</div></p>
+                <br>
+                <p>GENRE <div class= "hwq2button white bigrounded">{{genre}}</div></p>
+                <br>
+            <hr>
+            <h4>Edit playlist</h4>
+            <form method="GET">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                    <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+                </div>
+                <div class="form-group">
+                    <label>Select a mood: </label>
+                    <select class="form-control" ng-model="moodList">
+                        <option value="energetic">Energetic</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="chill">Chill</option>
+                        <option value="sleepy">Sleepy</option>
+                        <option value="party">Party</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select a genre: </label>
+                    <select class="form-control" ng-model="genreList">
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="electro">Electro</option>
+                        <option value="acoustic">Acoustic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </form>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                </div>
+        </div>
+        <div class="col-md-9">
+            <div id="player-div"></div>
+            <table class="table table-striped">
+                <thead>
+                        <td>Artist</td>
+                        <td>Track</td>        
+                </thead>
+                <tbody>
+                    <tr ng-repeat="key in playlist">
+                        <td>{{key.track.artists[0].name}}</td>
+                        <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
+                    </tr>
+                </tbody>
+            </table>    
+        </div>
     </div>
-    </div>
+</div>
