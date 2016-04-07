@@ -5,6 +5,49 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var playlists = [];
   //var dishes = [];
 
+  var moodImg={"energetic":"img/Energetic.jpg"
+            ,"romantic":"img/Romantic.jpg"
+          ,"chill":"img/Chill.jpg"
+          ,"sleepy":"img/Sleepy,.pg"
+          ,"party":"img/Party.jpg"
+          ,"allMood":"img/AllMood.jpg"};
+  var genreImg={
+            "rock":"img/Rock.jpg"
+            ,"pop":"img/Pop.jpg"
+          ,"electro":"img/Electro.jpg"
+          ,"acoustic":"img/Acoustic.jpg"
+          ,"other":"img/Other.jpg"
+          ,"allGenre":"img/AllGenre.jpg"};
+
+
+  var moodImgUrl="img/AllMood.jpg";
+  var genreImgUrl="img/AllGenre.jpg";
+
+
+  this.setMoodImgUrl = function(keywords){
+
+      moodImgUrl= moodImg[keywords];
+      
+  }
+  
+  this.getMoodImgUrl = function(){
+    console.log(moodImgUrl);
+    return moodImgUrl;
+  }
+
+
+  this.setGenreImgUrl = function(keywords){
+
+      genreImgUrl= genreImg[keywords];
+
+  }
+  
+  this.getGenreImgUrl = function(){
+    console.log(genreImgUrl);
+    return genreImgUrl;
+  }
+
+
   //gets all the playlists of the current user
   this.getUserPlaylists = function(accessToken) {
     var username = 
@@ -66,18 +109,35 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     //get playlist from an array with id's created in the search-ctrl
     //the id's are taken from the database, this in order to display
     //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
-    this.getPlaylist = function(idArray,genre) {
+    this.getPlaylist = function(idArray,type,keywords) {
     //console.log(idArray);
-    $("#results").html("<h3>Your playlists tagged as "+genre+":</h3>");
-    for (key in playlists){
-       var playlist = playlists[key];
-       if(jQuery.inArray(playlist.id, idArray) !== -1)
-           /* for (key in playlist.images){
-              var image = playlist.images[key]
-              console.log(image.url);
-            }*/
-            $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
-          }
+    console.log(type);
+    if(type=="genre"){
+        $("#results").html("<h3>Your playlists genre tagged as "+keywords+":</h3>");
+        for (key in playlists){
+           var playlist = playlists[key];
+           if(jQuery.inArray(playlist.id, idArray) !== -1)
+               /* for (key in playlist.images){
+                  var image = playlist.images[key]
+                  
+                }*/
+                $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
+        }
+    }else if(type=="mood"){
+        $("#results").html("<h3>Your playlists mood tagged as "+keywords+":</h3>");
+        for (key in playlists){
+           var playlist = playlists[key];
+           if(jQuery.inArray(playlist.id, idArray) !== -1)
+               /* for (key in playlist.images){
+                  var image = playlist.images[key]
+                  console.log(image.url);
+                }*/
+                $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
+        }
+    }
+
+
+    
   }
 
       //gets user info of the current user

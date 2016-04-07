@@ -20,8 +20,53 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
 	   	});
 	*/
   }
+  $scope.getMoodImgUrl = function(){ 
+    return Playlist.getMoodImgUrl();
+  }
+
+  $scope.getGenreImgUrl = function(){ 
+    return Playlist.getGenreImgUrl();
+  }
+
+
+
+  $scope.searchMood = function(mood){
+          
+          Playlist.setMoodImgUrl(mood);
+    
+    var query2 = mood;
+    //console.log(query);
+    $.ajax({
+      type: 'POST',
+      url: 'getplaylistfrommood.php',
+      dataType: 'json',
+      data: {Mood:query2},
+      success: function(result){
+        console.log("result");
+        console.log(result);
+        var array2 = []
+        for(key in result){
+          array2.push(result[key].id);
+        }
+        //console.log(array);
+        Playlist.getPlaylist(array2,"mood",mood);
+        Playlist.searchPlaylists(mood);
+
+
+      },
+      error: function(){
+        console.log("ERROOOORRR");
+
+      }
+
+    });
+    
+  }
 
   $scope.searchGenre = function(genre){
+    
+          Playlist.setGenreImgUrl(genre);
+
     var query = genre;
     //console.log(query);
     $.ajax({
@@ -30,14 +75,14 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
       dataType: 'json',
       data: {Genre:query},
       success: function(result){
-        //console.log("result");
-        //console.log(result);
+        console.log("result");
+        console.log(result);
         var array = []
         for(key in result){
           array.push(result[key].id);
         }
         //console.log(array);
-        Playlist.getPlaylist(array,genre);
+        Playlist.getPlaylist(array,"genre",genre);
         Playlist.searchPlaylists(genre);
 
 
@@ -49,7 +94,6 @@ playlistApp.controller('SearchCtrl', function ($scope,Playlist) {
 
     });
   }
-
   Playlist.getUserData();
   $scope.search();
 

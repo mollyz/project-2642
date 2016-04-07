@@ -1,11 +1,32 @@
+<style type="text/css">
+    .moodHandle{
+        float: right;
+    }
+</style>
 <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 <div class="container">
 	<div class="col-md-12" class="home" ng-controller="SearchCtrl">
 		<h3>Filter playlists</h3>
-		<form>
+		
+        <div class=" col-md-6"><img class='moodHandle' ng-src="{{getMoodImgUrl()}}"></div>
+        <div class="genreHandle col-md-6"><img ng-src="{{getGenreImgUrl()}}"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <form>
 		<div class="form-group">
                 <label>Select a mood: </label>
-                <select class="form-control" ng-model="moodList">
+                <select class="form-control" ng-model="moodList" ng-change="searchMood(moodList)">
+                    <option value="allMood">All Mood</option>
                     <option value="energetic">Energetic</option>
                     <option value="romantic">Romantic</option>
                     <option value="chill">Chill</option>
@@ -16,6 +37,7 @@
             <div class="form-group">
                 <label>Select a genre: </label>
                 <select class="form-control" ng-model="genreList" ng-change="searchGenre(genreList)">
+                    <option value="allGenre">All Genre</option>
                     <option value="rock">Rock</option>
                     <option value="pop">Pop</option>
                     <option value="electro">Electro</option>

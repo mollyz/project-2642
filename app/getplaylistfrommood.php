@@ -8,7 +8,7 @@ $databasename = 'playlist';
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
-$genre = $_POST['Genre'];
+$mood = $_POST['Mood'];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 } 
 
 //$sql = 'SELECT mood,genre,keywords WHERE id="$id"';
-$sql = "SELECT id FROM playlist WHERE genre='$genre'";
+$sql = "SELECT id FROM playlist WHERE mood='$mood'";
 $result = $conn->query($sql);
 $array = array();
 if ($result->num_rows > 0) {
