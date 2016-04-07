@@ -1,6 +1,6 @@
 <?php
 $username = "root";
-$password = "";
+$password = "root";
 $servername = "localhost";
 $databasename = 'playlist';
 //$info = '000003 03030303 030303030 030303030 030303030';

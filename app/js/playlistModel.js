@@ -107,7 +107,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
    this.getPlaylistTracks = function(playlistid){
       return $http({
       method: 'GET',
-      url: 'https://api.spotify.com/v1/users/ledzappa/playlists/'+playlistid+'/tracks',
+      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists/'+playlistid+'/tracks',
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
     }).then(function(response) {
       // this callback will be called asynchronously
@@ -153,12 +153,11 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   return $cookieStore.get("userData");
 }
 
-this.getUserId = function(){
-  var userdata = $cookieStore.get("userData");
-  var userId = userdata[0];
+this.getUserId=function(){
+  var userdata=$cookieStore.get("userData");
+  var userId=userdata[0];
   return userId;
 }
-
 
 
 
