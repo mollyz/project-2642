@@ -3,6 +3,60 @@ body{
 	color:#85BC00;
 }
 
+
+/* SEARCH VIEW */
+#genre-mood-container{
+	text-align: center;
+	width:610px;
+	margin:auto;
+}
+
+#search-moods{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+#search-genres{
+	display: inline-block;
+	margin-bottom: 10px;
+
+}
+
+.span-moods{
+	background-color: #000;
+	display: inline-block;
+	margin:2px;
+	padding:5px;
+	font-weight:bold;
+	font-size: 18px;
+	color:#555;
+}
+
+.span-label{
+	display: block;
+	font-weight: bold;
+}
+
+.span-moods:hover{
+	color:#fff;
+	cursor:pointer;
+}
+
+.div-edited{
+	background-color: yellow;
+	margin-top: 162px;
+	margin-left: 83px;
+	position: absolute;
+	width:5px;
+	height:5px;
+	border-width: 1px;
+	border-color: #000;
+	/*border-style: solid;*/
+	border-radius: 5px;
+	/*box-shadow: 1px 1px 5px #000;*/
+
+		}
+
 .form-control{
 	background-color: #000;
 	color:#fff;
@@ -70,10 +124,14 @@ body{
 	width:100%;
 	line-height:40px;
 	margin-top: 130px;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.8);
 	display:block;
-	font-size: 16px;
+	font-size: 14px;
 }
+
+
+
+/* EDIT PLAYLIST VIEW */
 
 #player-div{
 	background-color: #000;
@@ -82,50 +140,24 @@ body{
 	text-align: center;
 }
 
-#playlistPicture.commentAvatarDiv{
-	width: 320px;
-	height: 320px;
-	padding:2px;
-	background: #ececec;
-	border-radius:320px;
-	box-shadow: 0px 0px 1px rgba(0,0,0,0.4);
-	-moz-border-radius: 320px;
-	-webkit-border-radius: 320px;
+.editplaylist-title {
+	color:#ccc;
 }
 
-#playlistPic.commentAvatarImage{
-	width:320px;
-	height:320px;
-	line-height: 0;	/* remove line-height */ 
-	display: inline-block;	/* circle wraps image */
-	border-radius: 50%;	/* relative value */
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	transition: linear 0.25s;
+.errormsg{
+	font-size:22px;
+	background-color: #ff0000;
+	color:#fff;
 }
-.circle{
-	border-radius: 50%;
-	width: 100px;
-	height: 100px; 
-	font-size: 18pt;
-	text-align: center;
-	background-color: blue;
-	border: 2px;
+
+.header-style1{
+	padding:5px;
+	font-size: 22px;
+	background-color:#000;
+	color:#fff;
 }
- #songlistTable {
-        border: 1px solid #666666;/*表格外边框颜色*/
-    }
- #songlistTable tbody tr td {
-        font-family: "lucida grande", verdana, sans-serif;
-        font-size: 24pt;
-        padding: 3px 8px;
-        border-left: 1px solid #D9D9D9;/*边框色*/
-    }
- #songlistTable tbody tr.selected td {
-        background-color: #3d80df;/*被选择的行颜色*/
-        color: #ffffff;
-        font-weight: bold;
-        border-left: 1px solid #346DBE;
-        border-bottom: 1px solid #7DAAEA;
-    }
+
+#results, #suggested-results{
+	margin-bottom: 10px;
+}
 
