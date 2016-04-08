@@ -7,6 +7,12 @@
 
 
 <div class="container" ng-controller="EditPlaylistCtrl">
+    <script language="javascript">  
+    function display(){   
+    $("#editPlaylist").show(); 
+    }  
+    </script>  
+
     <style type="text/css">
         .FollowBtn{
             text-align: right;
@@ -135,7 +141,14 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));  
     background: -moz-linear-gradient(top, #fff, #ededed);  
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
-}  
+    }  
+
+    .empty {    
+    border: solid 1px #b7b7b7;
+    color: #606060;    
+    background: -moz-linear-gradient(top, #fff, #ededed);  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
+    }  
 
     .white:hover {  
         background: #ededed;  
@@ -167,6 +180,7 @@
        <a href='#search' class='BackButton'>Search</a> 
        <hr>
        <div class="sideList">
+           <p>My playlist</p>
            <div  ng-repeat="item in playlistArrow">
                <img  class="playlistPic"ng-src="{{item.images[0].url}}">
                <p>{{item.name}}</p>
@@ -184,40 +198,42 @@
                 <p>In the 14th episode of Metal Talks: Johan Hegg from Amon Amath! Follow this playlist and catch all the episodes! Listen to all our metal playlists,</p>
                 <p>Created by Sptify Metal Talks</p>
                 <br>
-                <p>MOOD <div class="hwq2button white bigrounded">{{mood}}</div></p>
+                <div class="hwq2button white bigrounded">{{mood}}</div>
+                <div class= "hwq2button white bigrounded">{{genre}}</div></p>
                 <br>
-                <p>GENRE <div class= "hwq2button white bigrounded">{{genre}}</div></p>
-                <br>
+                <div class="hwq2button empty bigrounded" onclick="display()">+</div>
             <hr>
-            <h4>Edit playlist</h4>
-            <form method="GET">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
-                    <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
-                </div>
-                <div class="form-group">
-                    <label>Select a mood: </label>
-                    <select class="form-control" ng-model="moodList">
-                        <option value="energetic">Energetic</option>
-                        <option value="romantic">Romantic</option>
-                        <option value="chill">Chill</option>
-                        <option value="sleepy">Sleepy</option>
-                        <option value="party">Party</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Select a genre: </label>
-                    <select class="form-control" ng-model="genreList">
-                        <option value="rock">Rock</option>
-                        <option value="pop">Pop</option>
-                        <option value="electro">Electro</option>
-                        <option value="acoustic">Acoustic</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </form>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+            <div id="editPlaylist" style="display:none;">
+                <h4>Edit playlist</h4>
+                <form method="GET">
+                    <div class="form-group">
+                        <label>Add another mood: </label>
+                        <select class="form-control" ng-model="moodList">
+                            <option value="energetic">Energetic</option>
+                            <option value="romantic">Romantic</option>
+                            <option value="chill">Chill</option>
+                            <option value="sleepy">Sleepy</option>
+                            <option value="party">Party</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Add another genre: </label>
+                        <select class="form-control" ng-model="genreList">
+                            <option value="rock">Rock</option>
+                            <option value="pop">Pop</option>
+                            <option value="electro">Electro</option>
+                            <option value="acoustic">Acoustic</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Add other keywords (separate with spaces):</label>
+                        <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+                    </div>
+                </form>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                    </div>
                 </div>
         </div>
         <div class="col-md-7">
