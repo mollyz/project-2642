@@ -1,6 +1,6 @@
 <?php
 $username = "root";
-$password = "root";
+$password = "";
 $servername = "localhost";
 $databasename = 'playlist';
 //$info = '000003 03030303 030303030 030303030 030303030';
@@ -18,19 +18,29 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-//$sql = 'SELECT mood,genre,keywords WHERE id="$id"';
-$sql = "SELECT * FROM playlist WHERE id='$id'";
-$result = $conn->query($sql);
+if ($id){
+	//RETURNS THE ROW FOR A SPECIFIC ID
+	$sql = "SELECT * FROM playlist WHERE id='$id'";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+	    while($row = $result->fetch_assoc()) {
+	    	echo json_encode($row);}
+	} else {
+	    echo "0 results";}
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-    	//header('Content-Type: application/json');
-    	echo json_encode($row);
-        //echo "id: " . $row["id"]. " - mood: " . $row["mood"]. " " . $row["genre"]. "<br>";
-    }
 } else {
-    echo "0 results";
+	//RETURNS ALL THE ID's IN THE DB
+	$sql = "SELECT id FROM playlist";
+	$result = $conn->query($sql);
+	$array = array();
+	if ($result->num_rows > 0) {
+	    while($row = $result->fetch_assoc()) {
+	    	$array[] = $row;}
+	echo json_encode($array);
+	} else {
+	    echo "0 results";
+	}
 }
+
 
 ?>
