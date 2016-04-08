@@ -48,13 +48,17 @@ playlistApp.config(['$routeProvider',
         templateUrl: 'partials/callback.html',
         controller: 'CallbackCtrl'
       }).
-      when('/playlist/:playlistId/:playlistUserId', {
+      when('/playlist/:playlistId/:playlistUserId/:playlistName', {
         templateUrl: 'partials/editPlaylist.html',
         controller: 'EditPlaylistCtrl'
       }).
       when('/editPlaylist', {
         templateUrl: 'partials/editPlaylist.html',
         controller: 'EditPlaylistCtrl'
+      }).
+      when('/dinnerPreparation', {
+        templateUrl: 'partials/dinnerPreparation.html',
+        controller: 'DinnerCtrl'
       }).
       // TODO in Lab 5: add more conditions for the last two screens (overview and preparation)
       otherwise({

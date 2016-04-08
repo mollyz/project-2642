@@ -5,14 +5,11 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
   $scope.playlistId = $routeParams.playlistId;
   $scope.playlistUserId = $routeParams.playlistUserId;
+  $scope.playlistName = $routeParams.playlistName;
 
 
   console.log("playlistID"+$scope.playlistId);
     console.log("playlistUSERID"+$scope.playlistUserId);
-
-    $scope.playlistArrow=Playlist.getAllPlaylists();
-
-
 
 
   //$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
@@ -62,6 +59,8 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords},
 			success: function(result){
 				alert("saved!");
+				location.reload();
+
 			},
 			error: function(){
 				alert('error saving order');
