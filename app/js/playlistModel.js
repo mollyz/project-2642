@@ -86,7 +86,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
       //gets user info of the current user
       this.getUserData = function(){
-        $http({
+        return $http({
           method: 'GET',
           url: 'https://api.spotify.com/v1/me',
           headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
@@ -99,7 +99,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         console.log("image url "+data.images[0].url);
         userData.push(data.id,data.display_name,data.images[0].url);
         $cookieStore.put("userData", userData);
-        return name;
+        return data;
         }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
