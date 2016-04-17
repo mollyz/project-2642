@@ -12,6 +12,7 @@ $id = $_POST['Id'];
 $mood = $_POST['Mood'];
 $genre = $_POST['Genre'];
 $keywords = $_POST['Keywords'];
+$newmood = $_POST['newMood'];
 
 
 // Create connection
@@ -22,8 +23,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "INSERT INTO playlist (id, mood, genre, keywords)
-VALUES ('$id', '$mood', '$genre', '$keywords')";
+$sql = "INSERT INTO playlist (id, mood, genre, keywords，newmood)
+VALUES ('$id', '$mood', '$genre', '$keywords','$newmood')";
 
 echo $sql;
 
