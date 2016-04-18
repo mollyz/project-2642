@@ -7,13 +7,20 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   $scope.playlistUserId = $routeParams.playlistUserId;
   $scope.playlistName = $routeParams.playlistName;
 
+  $scope.playlistArrow=Playlist.getAllPlaylists();
+
+
 
   console.log("playlistID"+$scope.playlistId);
     console.log("playlistUSERID"+$scope.playlistUserId);
 
 
-  //$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
-  //$apply();
+  	$scope.followCheck=function(){
+  		var info=Playlist.getFollowCheck($scope.playlistId,$scope.playlistUserId);
+  		console.log("info"+info);
+  	};
+
+
 	$scope.getTracks = function(playlistId){
 		console.log("getting tracks..");
 		Playlist.getPlaylistTracks(playlistId).then(function(data){

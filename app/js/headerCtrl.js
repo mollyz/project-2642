@@ -7,6 +7,7 @@ playlistApp.controller('HeaderCtrl', function ($scope,Playlist) {
 		Playlist.getUserData().then(function(data){
 				//console.log("userdetails: "+data)
 				$scope.userinfo=data;
+				console.log(data);
 			});
 	}
 

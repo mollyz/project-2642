@@ -38,6 +38,29 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       });
   }
 
+  this.getFollowCheck = function(playlistId,playlistOwner) {
+    var userData=this.getUserName();
+    var username=userData[1];
+    
+    var en_url=encodeURIComponent(username);
+    console.log("eb_url"+en_url);
+    ///////大问题：空格如何转成加号？？？？？？
+
+    $.ajax({
+      url: 'https://api.spotify.com/v1/users/'+playlistOwner+'/playlists/'+playlistId+'/followers/contains?ids='+en_url,
+      headers: {
+       'Authorization': 'Bearer ' + accessToken
+
+     },
+     dataType: 'json',
+     success: function(result){
+      console.log("result");
+      console.log(result);
+      }
+    });
+  }
+
+
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
@@ -67,6 +90,9 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       });
   }
 
+   this.getAllPlaylists=function(){
+      return playlists;
+    }
     //get playlist from an array with id's created in the search-ctrl
     //the id's are taken from the database, this in order to display
     //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
@@ -162,6 +188,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     var userId = userdata[0];
     return userId;
   }
+
 
 
 

@@ -6,8 +6,8 @@ $redirect_uri = $_POST['Redirect_uri'];
 //$grant_type = "authorization_code";
 //$code = "AQAX_5PXllOUxBNNO_nz0W1UFOhWP04LALu57EI_cDFxzMrHp4xm14vJ6CRA-vTrIvucKVYy3xnBOj7Z001xrBu1nC3iv-1FU_rFtmtsDqVR8DlHYnNUj-4zxkCE8zHBDjIHyrvDvfO6tQJx0tM4MnEWZt_J_Hdt44FinX7IEVkJd292iaUTNqgJEjSZvbddQhufvYfVWy5gWFvk04orpF9_2MtyAI_Hq81oHGfLMjPEi30IprN5f4Ksk7oQB9zgIasZjv-zzaGGmPKVSliCtlwQWff8MIAjYXzd4Sgb4LE";
 //$redirect_uri = "http%3A%2F%2Flocalhost%2Fproject%2Fapp%2Findex.html%23%2Fsearch";
-$client_key = "inserthere";
-$client_secret = "inserthere";
+$client_key = "insert here";
+$client_secret = "insert here";
 $encoded = base64_encode($client_key.":".$client_secret);
 $data = array('grant_type' => $grant_type, 'code' => $code, 'redirect_uri' => $redirect_uri);
 
