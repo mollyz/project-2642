@@ -22,7 +22,7 @@ playlistApp.controller('CallbackCtrl', function ($scope,Playlist,$location) {
   	console.log("foooo");
   	var grant_type = "authorization_code";
   	var code = Playlist.getQueryString('code');
-  	var redirect_uri = "http%3A%2F%2Flocalhost%3A8888%2Fproject%2Fapp%2Findex.html%23%2Fcallback";
+  	var redirect_uri = "http%3A%2F%2Flocalhost%2Fproject%2Fapp%2Findex.html%23%2Fcallback";
   	console.log("CODE: "+code);
 
   	$.ajax({
