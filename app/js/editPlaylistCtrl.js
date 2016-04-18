@@ -8,7 +8,9 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   $scope.playlistName = $routeParams.playlistName;
 
   $scope.playlistArrow=Playlist.getAllPlaylists();
-
+  $scope.display=function(){
+  	$("#editPlaylist").show(); 
+  }
 
 
   console.log("playlistID"+$scope.playlistId);
