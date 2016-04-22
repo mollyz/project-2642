@@ -16,6 +16,15 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   console.log("playlistID"+$scope.playlistId);
     console.log("playlistUSERID"+$scope.playlistUserId);
 
+    $scope.playlistArrow=Playlist.getAllPlaylists();
+
+	$scope.followplaylist = function (ownerId,playlistId){
+	  $http({
+          method: 'PUT'
+          url: 'https://api.spotify.com/v1/users/'+this.ownerId+'/playlists/'+this.playlistId+'/followers',
+		  headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+        });
+	}
 
   	$scope.followCheck=function(){
   		var info=Playlist.getFollowCheck($scope.playlistId,$scope.playlistUserId);
@@ -68,8 +77,6 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords},
 			success: function(result){
 				alert("saved!");
-				location.reload();
-
 			},
 			error: function(){
 				alert('error saving order');

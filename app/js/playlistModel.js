@@ -189,9 +189,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     return userId;
   }
 
-
-
-
   return this;
 
 });
