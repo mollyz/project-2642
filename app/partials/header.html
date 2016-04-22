@@ -1,3 +1,11 @@
+
+
 <div class="col-md-12" id="header" ng-controller="HeaderCtrl">
-	<span id="log-in"><img src="{{userinfo.images[0].url}}" class="img-circle profile-pic">{{userinfo.id}}</span>
+
+	<span id="log-in"><img src="{{userinfo.images[0].url}}" class="img-circle profile-pic">{{userinfo.display_name}}</span>
+
+	<span class="addLabels"><a ng-href="#/editLabels" class="btn btn-primary">EDIT LABELS</a></span>
+	<a data-toggle="tooltip" class="tooltipLink" data-original-title="Need help? Click here!" data-placement="bottom">
+  		<span class="glyphicon glyphicon-info-sign"></span>
+	</a>
 </div>
