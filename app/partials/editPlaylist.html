@@ -6,56 +6,61 @@
     <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 
     <div class="container" ng-controller="EditPlaylistCtrl">
-    <div class="col-md-3">
-        <h2>Edit playlist</h2>
-        <form method="GET">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
-                <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
-            </div>
-            <div class="form-group">
-                <label>Select a mood: </label>
-                <select class="form-control" ng-model="moodList">
-                    <option value="energetic">Energetic</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="chill">Chill</option>
-                    <option value="sleepy">Sleepy</option>
-                    <option value="party">Party</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Select a genre: </label>
-                <select class="form-control" ng-model="genreList">
-                    <option value="rock">Rock</option>
-                    <option value="pop">Pop</option>
-                    <option value="electro">Electro</option>
-                    <option value="acoustic">Acoustic</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
-            </div>
-            <p>Mood: {{mood}}</p>
-            <p>Genre: {{genre}}</p>
+        <div class="col-md-3">
+            <h2>Edit playlist</h2>
+            <form method="GET">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                    <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+                </div>
+                <div class="form-group">
+                    <label>Select a mood: </label>
+                    <select class="form-control" ng-model="moodList">
+                        <option value="" disabled>{{mood}}</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="chill">Chill</option>
+                        <option value="sleepy">Sleepy</option>
+                        <option value="party">Party</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select a genre: </label>
+                    <select class="form-control" ng-model="genreList" title="please select">
+                        <option data-hidden="true"></option>
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="electro" selected>Electro</option>
+                        <option value="acoustic">Acoustic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                </div>
 
-        </form>
 
-    </div>
-    <div class="col-md-9">
-    <h2 class="editplaylist-title">{{playlistName}}</h2>
-    <div id="player-div"></div>
-    <table class="table table-striped">
-        <thead>
-                <td>Artist</td>
-                <td>Track</td>        
-        </thead>
-        <tbody>
-            <tr ng-repeat="key in playlist">
-                <td>{{key.track.artists[0].name}}</td>
-                <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
-            </tr>
-        </tbody>
-    </table>    
-    </div>
-    </div>
+            </form>
+
+        </div>
+        <div class="col-md-9 playlistview">
+            <span class="editplaylist-title">{{playlistName}}</span>
+            <span id="follow-button-span">
+        </div>
+        <div class="col-md-9" id="player-div">
+            
+        </div>
+
+<!--<table class="table table-striped">
+    <thead>
+            <td>Artist</td>
+            <td>Track</td>        
+    </thead>
+    <tbody>
+        <tr ng-repeat="key in playlist">
+            <td>{{key.track.artists[0].name}}</td>
+            <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
+        </tr>
+    </tbody>
+</table>    -->
+</div>
