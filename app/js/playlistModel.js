@@ -3,40 +3,21 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var accessToken = "";
   var userName = "";
   var playlists = [];
-  //var dishes = [];
 
-  //gets all the playlists of the current user
-  this.getUserPlaylists = function(accessToken,idArray) {
-    console.log("playmodel id array" + idArray);
-    $.ajax({
+
+this.getUserPlaylists = function(){
+    return $http({
+      method: 'GET',
       url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
-      headers: {
-       'Authorization': 'Bearer ' + accessToken
-
-     },
-     dataType: 'json',
-     success: function(result){
-      $("#results").html("<span class='header-style1'>Your playlists:</span><br />");
-
-      playlists = result.items;
-      console.log(playlists);
-      for (key in playlists){
-      var playlist = playlists[key];
-      var editedhtml="";
-          if(jQuery.inArray(playlist.id, idArray) !== -1){
-            editedhtml="<div class='div-edited'></div>";
-          }
-           /* for (key in playlist.images){
-              var image = playlist.images[key]
-              console.log(image.url);
-            }*/
-            $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'>"+editedhtml+"<a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
-          }
-
-          return result.items;
-        }
-      });
-  }
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function successCallback(response) {
+      console.log("getuserplaylists");
+      var data = response.data;
+      return data;
+    }, function errorCallback(response) {
+          console.log("gick åt hvete");
+        });
+    }
 
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
@@ -59,7 +40,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
               var image = playlist.images[key]
               console.log(image.url);
             }*/
-            $("#results-suggested").append("<div id='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"/"+sgPlaylist.name+"'><span id='playlist-div-span'>"+sgPlaylist.name+"</span></a></div>");
+            $("#results-suggested").append("<div class='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"/"+sgPlaylist.name+"'><div class='playlist-div-details'>"+sgPlaylist.name+"</div></a></div>");
           }
 
           return result.items;
@@ -73,6 +54,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     this.getPlaylist = function(idArray,genre) {
     //console.log(idArray);
     $("#results").html("<span class='header-style1'>Your playlists tagged as "+genre+":</span><br />");
+    console.log("getPLaylist: "+playlists);
     for (key in playlists){
        var playlist = playlists[key];
        if(jQuery.inArray(playlist.id, idArray) !== -1)
@@ -80,7 +62,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
               var image = playlist.images[key]
               console.log(image.url);
             }*/
-            $("#results").append("<div id='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><span id='playlist-div-span'>"+playlist.name+"</span></a></div>");
+            $("#results").append("<div class='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><div class='playlist-div-details'>"+playlist.name+"</div></a></div>");
           }
   }
 
@@ -101,13 +83,14 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         $cookieStore.put("userData", userData);
         return data;
         }, function errorCallback(response) {
+          console.log("gick åt hvete");
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         });
               }
 
 
-    //get all tracks within a certain playlist
+  //get all tracks within a certain playlist
   this.getPlaylistTracks = function(playlistid){
       return $http({
       method: 'GET',
@@ -145,6 +128,10 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     console.log("accesstoken set");
   };
 
+  this.setPlaylists = function(array){
+    playlists = array;
+  };
+
   this.getAccessToken = function(){
     if($cookieStore.get("accesstoken")){
       return $cookieStore.get("accesstoken");
@@ -166,5 +153,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
 
   return this;
+
 
 });
