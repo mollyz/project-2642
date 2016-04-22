@@ -56,10 +56,11 @@ playlistApp.config(['$routeProvider',
         templateUrl: 'partials/editPlaylist.html',
         controller: 'EditPlaylistCtrl'
       }).
-      when('/dinnerPreparation', {
-        templateUrl: 'partials/dinnerPreparation.html',
-        controller: 'DinnerCtrl'
+      when('/editLabels', {
+        templateUrl: 'partials/editLabels.html',
+        controller: 'EditLabelsCtrl'
       }).
+
       // TODO in Lab 5: add more conditions for the last two screens (overview and preparation)
       otherwise({
         redirectTo: '/home'
