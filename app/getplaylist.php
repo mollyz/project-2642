@@ -1,14 +1,14 @@
 <?php
-$username = "root";
-$password = "";
-$servername = "localhost";
-$databasename = 'playlist';
+include 'db-login.php';
 //$info = '000003 03030303 030303030 030303030 030303030';
 //$info = $_POST['Result'];
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
 $id = $_POST['Id'];
+$userid = $_POST['UserId'];
+//$userid = "ledzappa";
+//echo "SELECT id FROM pl_".$userid."_playlists";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
@@ -30,15 +30,16 @@ if ($id){
 
 } else {
 	//RETURNS ALL THE ID's IN THE DB
-	$sql = "SELECT id FROM playlist";
+	$sql = "SELECT id FROM pl_".$userid."_playlists";
 	$result = $conn->query($sql);
 	$array = array();
+	$error = array("error");
 	if ($result->num_rows > 0) {
 	    while($row = $result->fetch_assoc()) {
 	    	$array[] = $row;}
 	echo json_encode($array);
 	} else {
-	    echo "0 results";
+	    echo json_encode($error);
 	}
 }
 
