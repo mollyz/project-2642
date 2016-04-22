@@ -1,5 +1,14 @@
 playlistApp.controller('CallbackCtrl', function ($scope,Playlist,$location) {
 
+  var userId = "";
+
+  $scope.sleep = function sleep(miliseconds) {
+   var currentTime = new Date().getTime();
+
+   while (currentTime + miliseconds >= new Date().getTime()) {
+   }
+  }
+
   $scope.search = function(){
   	console.log("search");
   	$scope.playlists = Playlist.getUserPlaylists(Playlist.getAccessToken());
@@ -35,25 +44,40 @@ playlistApp.controller('CallbackCtrl', function ($scope,Playlist,$location) {
       console.log("Access token: "+result.access_token);
       Playlist.setAccessToken(result.access_token);
       $scope.access_token = result.access_token;
-      Playlist.getUserData();
-      $scope.$apply(function() { $location.path("/search"); });
+
+      Playlist.getUserData().then(function(data){
+        console.log(data);
+        console.log(data.id);
+        $scope.userinfo=data.id;
+        $scope.createDatabase($scope.userinfo);
+        $location.path("/search");
+      });
+
+      //$scope.createDatabase(Playlist.getUserId());
+      //$scope.$apply(function() { $location.path("/search"); });
 
     }
 
 
   });
-
-  	/*$.post("https://accounts.spotify.com/api/token",
-    {
-        grant_type: grant_type,
-        code: code,
-        redirect_uri: redirect_uri
-    },
-    function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
-    });
-*/
 	}
+
+  $scope.createDatabase = function(userId) {
+    console.log("create database as: "+userId);
+
+    $.ajax({
+    url: 'createdatabase.php',
+    type: 'POST',
+    data: {UserId:userId},
+    success: function(result){
+
+      console.log("Database created!" + result);
+
+    }
+
+
+  });
+  }
 
 
 
