@@ -59,6 +59,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
        'Authorization': 'Bearer ' + Playlist.getAccessToken()
      	},
      	success: function(result){
+     		alert("Followed successfully!");
 			$scope.checkIfFollowed();
 	        }
       });	
@@ -73,6 +74,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
        'Authorization': 'Bearer ' + Playlist.getAccessToken()
      	},
      	success: function(result){
+     		alert("Stop following successfully!");
 			$scope.checkIfFollowed();        }
       });
 	}
@@ -114,7 +116,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			url: 'insert.php',
 			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId},
 			success: function(result){
-				alert("saved!");
+				alert("Saved successfully!");
 				location.reload();
 			},
 			error: function(){

@@ -7,23 +7,30 @@
 
     <div class="container" ng-controller="EditPlaylistCtrl">
         <div class="col-md-2">
-        <br>
-        <a href='#search' class='BackButton'>Go Back</a> 
-        <hr>
-         <div class="sideList">
-            <h4>My playlist</h4>
             <br>
-            <div  ng-repeat="item in playlistArrow">
-                <a ng-href="#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}">
-                <img class="playlistPic" id="{{item.id}}" ng-src="{{item.images[0].url}}">
-                </a>
-                <p>{{item.name}}</p>
+            <a href='#search' class='BackButton'>Go Back</a> 
+            <br>
+            <div class="sideList">
+                <h4>My playlist</h4>
                 <br>
+                <div  ng-repeat="item in playlistArrow">
+                    <a ng-href="#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}">
+                    <img class="playlistPic" id="{{item.id}}" ng-src="{{item.images[0].url}}">
+                    </a>
+                    <p>{{item.name}}</p>
+                    <br>
+                </div>
             </div>
-         </div>
         </div>
 
         <div class="col-md-3">
+            <span class="editplaylist-title">{{playlistName}}</span>
+            <p>{{playlist.discription}}</p>
+            <p>MOOD <div class="hwq2button white bigrounded">{{mood}}</div></p>
+            <br>
+            <p>GENRE <div class= "hwq2button white bigrounded">{{genre}}</div></p>
+
+            <hr>
             <h2>Edit playlist</h2>
             <form method="GET">
                 <div class="form-group">
@@ -61,7 +68,6 @@
         </div>
             
         <div class="col-md-7 playlistview">
-            <span class="editplaylist-title">{{playlistName}}</span>
             <span id="follow-button-span">
         </div>
         <div class="col-md-7" id="player-div">
