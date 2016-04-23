@@ -1,4 +1,4 @@
-playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interval,Playlist) {
+playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interval,$compile,$http,Playlist) {
 
   // TODO in Lab 5: you will need to implement a method that searchers for dishes
   // including the case while the search is still running.
@@ -8,35 +8,73 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   $scope.playlistName = $routeParams.playlistName;
 
   $scope.playlistArrow=Playlist.getAllPlaylists();
-  $scope.display=function(){
-  	$("#editPlaylist").show(); 
-  }
+
+  var isFollowed = "";
+
 
 
   console.log("playlistID"+$scope.playlistId);
-    console.log("playlistUSERID"+$scope.playlistUserId);
-
-    $scope.playlistArrow=Playlist.getAllPlaylists();
-
-	$scope.followplaylist = function (ownerId,playlistId){
-	  $http({
-          method: 'PUT'
-          url: 'https://api.spotify.com/v1/users/'+this.ownerId+'/playlists/'+this.playlistId+'/followers',
-		  headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
-        });
-	}
-
-  	$scope.followCheck=function(){
-  		var info=Playlist.getFollowCheck($scope.playlistId,$scope.playlistUserId);
-  		console.log("info"+info);
-  	};
+  console.log("playlistUSERID"+$scope.playlistUserId);
 
 
+  //$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
+  //$apply();
 	$scope.getTracks = function(playlistId){
 		console.log("getting tracks..");
 		Playlist.getPlaylistTracks(playlistId).then(function(data){
 				$scope.playlist=data;
 			});
+	}
+
+	$scope.checkIfFollowed = function(){
+		console.log("checkiffollowplaylist...");
+		$http({
+      	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers/contains?ids='+Playlist.getUserId(),
+      	method: 'GET',
+      	headers: {'Authorization': 'Bearer ' + Playlist.getAccessToken()}
+      }).then(function successCallback(response){
+     		console.log(response.data);
+     		if (response.data=="true"){
+     		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#006633; color:#fff" ng-click="unfollowPlaylist()">Followed</button>');
+   			$compile($el)($scope);
+        	} else if (response.data=="false") {
+        	var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#000" ng-click="followPlaylist()">Follow</button>');
+   			$compile($el)($scope);
+        	}
+        }, function errorCallback(response) {
+          console.log("gick åt hvete");
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        });
+
+	}
+
+	//follow playlist button
+	$scope.followPlaylist = function(){
+		console.log("followplaylist...");
+		$.ajax({
+      	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
+      	method: 'PUT',
+      	headers: {
+       'Authorization': 'Bearer ' + Playlist.getAccessToken()
+     	},
+     	success: function(result){
+			$scope.checkIfFollowed();
+	        }
+      });	
+	}
+
+	$scope.unfollowPlaylist = function(){
+		console.log("unfollowplaylist...");
+		$.ajax({
+      	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
+      	method: 'DELETE',
+      	headers: {
+       'Authorization': 'Bearer ' + Playlist.getAccessToken()
+     	},
+     	success: function(result){
+			$scope.checkIfFollowed();        }
+      });
 	}
 
 	$scope.getMeta = function(playlistId){
@@ -50,15 +88,14 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 				var data=result;
 				$scope.mood=result.mood;
 				$scope.genre=result.genre;
+				$scope.keywords=result.keywords;
 				console.log("META: "+result);
 
 			},
 			error: function(){
 				$scope.mood="No meta found!";
 				$scope.genre="No meta found!";
-
 			}
-
 		});
 	}
 
@@ -70,13 +107,15 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	$scope.insert = function(id,mood,genre,keywords){
 		var id=$scope.playlistId;
-		console.log("insert");
+		var userId=Playlist.getUserId();
+		console.log("insert "+userId);
 		$.ajax({
 			type: 'POST',
 			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords},
+			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId},
 			success: function(result){
 				alert("saved!");
+				location.reload();
 			},
 			error: function(){
 				alert('error saving order');
@@ -86,6 +125,10 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	}
 	$scope.getMeta($scope.playlistId);
-	$scope.getPlayer($scope.playlistId,$scope.playlistUserId);
 	$scope.getTracks($scope.playlistId);
+	$scope.checkIfFollowed();
+	$scope.getPlayer($scope.playlistId,$scope.playlistUserId);
+
+
+
 });

@@ -9,11 +9,15 @@ which module to associate the app with. In app.js we create the "dinnerPlanner" 
     <title>Playlist manager</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="mosaic/css/mosaic.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">    
+
 
     <!-- jQuery -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="mosaic/js/mosaic.1.0.1.js"></script>
+
     <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Angular JavaScript including routing and resource modules  -->
@@ -21,10 +25,7 @@ which module to associate the app with. In app.js we create the "dinnerPlanner" 
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="js/d3.layout.cloud.js"></script>
-
-
+    
   </head>
   <body>
     <div class="container-fluid">
@@ -39,9 +40,9 @@ which module to associate the app with. In app.js we create the "dinnerPlanner" 
 
     <script src="js/callbackCtrl.js"></script>
     <script src="js/editPlaylistCtrl.js"></script>
+    <script src="js/editLabelsCtrl.js"></script>
     <script src="js/loginCtrl.js"></script>
     <script src="js/searchCtrl.js"></script>
     <script src="js/headerCtrl.js"></script>
-    
     </body>
 </html>

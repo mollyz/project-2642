@@ -1,75 +1,18 @@
 <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
-<div class="container">
-	<div class="col-md-12" class="home" ng-controller="SearchCtrl">
+<div class="container" ng-controller="SearchCtrl">
+	<div class="col-md-12" class="home">
 		<h3>Filter playlists</h3>
         <div class="col-md-6" id="search-moods">
-            <span class="span-label">Select mood:</span>
-            <span class="span-moods" ng-click="searchGenreMood('energetic')">Energetic</span>
-            <span class="span-moods" ng-click="searchGenreMood('romantic')">Romantic</span>
-            <span class="span-moods" ng-click="searchGenreMood('chill')">Chill</span>
-            <span class="span-moods" ng-click="searchGenreMood('sleepy')">Sleepy</span>
-            <span class="span-moods" ng-click="searchGenreMood('party')">Party</span>
-            <span class="span-moods" ng-click="searchGenreMood('peaceful')">Peaceful</span>
-            <span class="span-moods" ng-click="searchGenreMood('spiritual')">Spiritual</span>
-            <span class="span-moods" ng-click="searchGenreMood('angry')">Angry</span>
-            <span class="span-moods" ng-click="searchGenreMood('happy')">Happy</span>
-            <div id="wordCloud"></div>
         </div>
         <div class="col-md-6" id="search-genres">
-            <span class="span-label">Select genre:</span>
-            <span class="span-moods" ng-click="searchGenreMood('rock')">Rock</span>
-            <span class="span-moods" ng-click="searchGenreMood('pop')">Pop</span>
-            <span class="span-moods" ng-click="searchGenreMood('electro')">Electro</span>
-            <span class="span-moods" ng-click="searchGenreMood('acoustic')">Acoustic</span>
-            <span class="span-moods" ng-click="searchGenreMood('punk')">Punk</span>
-            <span class="span-moods" ng-click="searchGenreMood('house')">House</span>
-            <span class="span-moods" ng-click="searchGenreMood('metal')">Metal</span>
-            <span class="span-moods" ng-click="searchGenreMood('dubstep')">Dubstep</span>
-            <span class="span-moods" ng-click="searchGenreMood('other')">Other</span>
         </div>
-        <!--
-		<form>
-		<div class="form-group">
-                <label>Select a mood: </label>
-                <select class="form-control" ng-model="moodList" ng-change="searchGenreMood(moodList)">
-                    <option value="energetic">Energetic</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="chill">Chill</option>
-                    <option value="sleepy">Sleepy</option>
-                    <option value="party">Party</option>
-                    <option value="peaceful">Peaceful</option>
-                    <option value="spiritual">Spiritual</option>
-                    <option value="angry">Angry</option>
-                    <option value="happy">Happy</option>
-
-
-
-
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Select a genre: </label>
-                <select class="form-control" ng-model="genreList" ng-change="searchGenreMood(genreList)">
-                    <option value="rock">Rock</option>
-                    <option value="pop">Pop</option>
-                    <option value="electro">Electro</option>
-                    <option value="acoustic">Acoustic</option>
-                    <option value="punk">Punk</option>
-                    <option value="house">House</option>
-                    <option value="metal">Metal</option>
-                    <option value="dubstep">Dubstep</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            -->
         <form>
 		<div class="form-group">
-                <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword(s)">
+            <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword(s)">
       	</div>
       	</form>
 	</div>
-	<div class="col-md-12" id="results"></div>
+	<div class="col-md-12 col-sm-12" id="results"></div>
 	<div class="col-md-12" id="results-suggested"></div>
 
 </div>
-<script src="js/wordcloud.js"></script>

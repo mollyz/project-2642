@@ -5,102 +5,78 @@
     where you specify which partial should be loaded when. -->
     <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 
-<div class="container" ng-controller="EditPlaylistCtrl">
-    <div class="col-md-2">
-    <br>
-       <a href='#search' class='BackButton'>Search</a> 
-       <hr>
-       <div class="sideList">
-           <h4>My playlist</h4>
-           <br>
-               <div  ng-repeat="item in playlistArrow">
-                
+    <div class="container" ng-controller="EditPlaylistCtrl">
+        <div class="col-md-2">
+        <br>
+        <a href='#search' class='BackButton'>Go Back</a> 
+        <hr>
+         <div class="sideList">
+            <h4>My playlist</h4>
+            <br>
+            <div  ng-repeat="item in playlistArrow">
                 <a ng-href="#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}">
-                  <img class="playlistPic" id="{{item.id}}" ng-src="{{item.images[0].url}}">
-                   </a>
-                   <p>{{item.name}}</p>
-                   
-            
+                <img class="playlistPic" id="{{item.id}}" ng-src="{{item.images[0].url}}">
+                </a>
+                <p>{{item.name}}</p>
                 <br>
-           </div>
-       </div>
-    </div>
-
-    <div class= "col-md-10">
-        <div class="col-md-4">
-            <h2>Metal Talks</h2>
-            <h4 style="text-align: right;">| Amon Amarth</h4>
-
-           
-                <p>In the 14th episode of Metal Talks: Johan Hegg from Amon Amath! Follow this playlist and catch all the episodes! Listen to all our metal playlists,</p>
-                <p>Created by Sptify Metal Talks</p>
-                <br>
-                <p>MOOD <div class="hwq2button white bigrounded">{{mood}}</div></p>
-                <br>
-                <p>GENRE <div class= "hwq2button white bigrounded">{{genre}}</div></p>
-                <br>
-                
-                <div class="hwq2button empty bigrounded" ng-click="display()">+</div>
-            <hr>
-            <div id="editPlaylist" style="display:none;">
-                <h4>Edit playlist</h4>
-                <form method="GET">
-                    <div class="form-group">
-                        <label>Add another mood: </label>
-                        <select class="form-control" ng-model="moodList">
-                            <option value="energetic">Energetic</option>
-                            <option value="romantic">Romantic</option>
-                            <option value="chill">Chill</option>
-                            <option value="sleepy">Sleepy</option>
-                            <option value="party">Party</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Add another genre: </label>
-                        <select class="form-control" ng-model="genreList">
-                            <option value="rock">Rock</option>
-                            <option value="pop">Pop</option>
-                            <option value="electro">Electro</option>
-                            <option value="acoustic">Acoustic</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Add other keywords (separate with spaces):</label>
-                        <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
-                    </div>
-                </form>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
-                    </div>
-                </div>
-        </div>
-        <div class="col-md-7">
-            <br>
-            <br>
-            <p>{{followCheck()}}</p>
-            <div class="FollowBtn">
-
-                <a href='#' class='followButton' ng-click="followPlaylist()">Follow this playlist</a>
             </div>
-            <br>
-            <div id="player-div"></div>
-            <br>
-             
-
-            <table class="table table-striped">
-                <thead>
-                        <td>Artist</td>
-                        <td>Track</td>        
-                </thead>
-                <tbody>
-                    <tr ng-repeat="key in playlist">
-                        <td>{{key.track.artists[0].name}}</td>
-                        <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
-                    </tr>
-                </tbody>
-            </table>    
+         </div>
         </div>
 
-    </div>
+        <div class="col-md-3">
+            <h2>Edit playlist</h2>
+            <form method="GET">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                    <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+                </div>
+                <div class="form-group">
+                    <label>Select a mood: </label>
+                    <select class="form-control" ng-model="moodList">
+                        <option value="" disabled>{{mood}}</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="chill">Chill</option>
+                        <option value="sleepy">Sleepy</option>
+                        <option value="party">Party</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select a genre: </label>
+                    <select class="form-control" ng-model="genreList" title="please select">
+                        <option data-hidden="true"></option>
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="electro" selected>Electro</option>
+                        <option value="acoustic">Acoustic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                </div>
+
+
+            </form>
+        </div>
+            
+        <div class="col-md-7 playlistview">
+            <span class="editplaylist-title">{{playlistName}}</span>
+            <span id="follow-button-span">
+        </div>
+        <div class="col-md-7" id="player-div">
+        </div>
+
+<!--<table class="table table-striped">
+    <thead>
+            <td>Artist</td>
+            <td>Track</td>        
+    </thead>
+    <tbody>
+        <tr ng-repeat="key in playlist">
+            <td>{{key.track.artists[0].name}}</td>
+            <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
+        </tr>
+    </tbody>
+</table>    -->
 </div>
