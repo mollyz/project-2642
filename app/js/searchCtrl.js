@@ -32,6 +32,31 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist) {
     });
   }
 
+  $scope.searchKeywords = function(query){
+      var userId = Playlist.getUserId();
+
+      console.log(query);
+      $.ajax({
+      type: 'POST',
+      url: 'getplaylistfromkeywords.php',
+      dataType: 'json',
+      data: {Keyword:query, UserId:userId},
+      success: function(result){
+                var array = []
+        console.log("RESULT! "+result);
+        for(key in result){
+          array.push(result[key].id);
+        }
+        Playlist.getPlaylist(array,query);
+        Playlist.searchPlaylists(query);
+      },
+      error: function(){
+        $("#results").html("<span class='errormsg'>You don't have any playlists with the keyword '"+query+"'. Check out the ones below!</span>");
+        Playlist.searchPlaylists(query);
+      }
+    });
+  }
+
 
   //gets all playlists that the user HAS ADDED META to
   //and put them in an array, then compares the array to
