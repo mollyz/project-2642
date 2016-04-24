@@ -22,9 +22,20 @@ if ($conn->connect_error) {
 
 //$sql = "INSERT INTO playlist (id, mood, genre, keywords)
 //VALUES ('$id', '$mood', '$genre', '$keywords')";
-
+if($mood && $genre && $keywords){
 $sql = "INSERT INTO pl_".$userId."_playlists (id, mood, genre, keywords) VALUES('$id', '$mood', '$genre', '$keywords') ON DUPLICATE KEY UPDATE    
 mood='$mood', genre='$genre', keywords='$keywords'";
+} else if($mood &&! $genre &&! $keywords){
+$sql = "INSERT INTO pl_".$userId."_playlists (id, mood) VALUES('$id', '$mood') ON DUPLICATE KEY UPDATE    
+mood='$mood'";
+} else if($genre &&! $mood &&! $keywords){
+$sql = "INSERT INTO pl_".$userId."_playlists (id, genre) VALUES('$id', '$genre') ON DUPLICATE KEY UPDATE    
+genre='$genre'";
+} else if($keywords &&! $genre &&! $mood){
+$sql = "INSERT INTO pl_".$userId."_playlists (id, keywords) VALUES('$id', '$keywords') ON DUPLICATE KEY UPDATE    
+keywords='$keywords'";
+}
+
 
 echo $sql;
 
