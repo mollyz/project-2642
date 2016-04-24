@@ -14,13 +14,13 @@ $scope.getUserLabels = function(userId,labeltype){
         if(labeltype=='mood'){
           $("#addLabel-moods").html('');
           for(key in result){
-            var $el = $("#addLabel-moods").append('<span class="span-moods" ng-click="searchGenreMood('+"'"+result[key].mood+"'"+')">'+result[key].mood+'</span>');
+            var $el = $("#addLabel-moods").append('<span class="span-moods-remove" ng-click="removeLabel('+"'mood','"+result[key].mood+"'"+')">'+result[key].mood+'</span>');
           }
           $compile($el)($scope);
         }else if(labeltype=='genre'){
           $("#addLabel-genres").html('');
           for(key in result){
-            var $el = $("#addLabel-genres").append('<span class="span-moods" ng-click="searchGenreMood('+"'"+result[key].genre+"'"+')">'+result[key].genre+'</span>');
+            var $el = $("#addLabel-genres").append('<span class="span-moods-remove" ng-click="removeLabel('+"'genre','"+result[key].genre+"'"+')">'+result[key].genre+'</span>');
           }
           $compile($el)($scope);
         }
@@ -39,6 +39,23 @@ $scope.getUserLabels = function(userId,labeltype){
       data: {UserId:userId, LabelType: labelType, NewLabel: newLabel},
       success: function(result){
       	alert('Label added!');
+        location.reload();
+      },
+      error: function(){
+        console.log("ERROR!");
+      }
+    });
+  }
+
+  $scope.removeLabel = function(labelType,removeLabel){
+    console.log("removelabel" + labelType + " " + removeLabel)
+    var userId = Playlist.getUserId();
+    $.ajax({
+      type: 'POST',
+      url: 'removeLabel.php',
+      data: {UserId:userId, LabelType: labelType, RemoveLabel: removeLabel},
+      success: function(result){
+        alert('Label removed!');
         location.reload();
       },
       error: function(){
