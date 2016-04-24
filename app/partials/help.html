@@ -8,7 +8,7 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" 
-			          href="#collapseOne">
+			          data-target="#collapseOne">
 			          What's the App?
 			        </a>
 			      </h4>
@@ -25,17 +25,18 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" 
-			          href="#collapseTwo">
+			          data-target="#collapseTwo">
 			          How to use the filter?
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="collapseTwo" class="panel-collapse collapse in">
+			    <div id="collapseTwo" class="panel-collapse collapse">
 			      <div class="panel-body">
 			      	<p>We provide three kinds of filters to help you find playlists you want to listen now quickly: mood, genre and your own keywords</p>
 			        <p>Both mood and genre labels list are showed in the homepage and you can click to choose one as a filter option. Some popular labels are showed as WordCloud and the size of the word is related with its popularity.</p>
 			        <p>If the labels can't satisfy your need, you can input your own keyword to search.</p>
 			        <p>Clicking "Clear option" button, all options in filter will be removed.</p>
+			        <img class="helpPicture" src="img/Help2.png">
 			      </div>
 			    </div>
 			  </div>
@@ -44,15 +45,16 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" 
-			          href="#collapseThree">
+			          data-target="#collapseThree">
 			          What's the meaning of yellow circle sign below some playlists?
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="collapseThree" class="panel-collapse collapse in">
+			    <div id="collapseThree" class="panel-collapse collapse">
 			      <div class="panel-body">
 			      	<p>All playlists which have been edited in this web application show a yellow circle sign to help you distingwish.</p>
 			      	<p>And don't fotget that moving the mouse on a playlist picture, it can show you the basic information of it.</p>
+			      	 <img class="helpPicture" src="img/Help3.png">
 			      </div>
 			    </div>
 			  </div>
@@ -61,15 +63,16 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" 
-			          href="#collapseThree">
+			         data-target="#collapseFour">
 			          How to edit a playlist?
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="collapseThree" class="panel-collapse collapse in">
+			    <div id="collapseFour" class="panel-collapse collapse">
 			      <div class="panel-body">
 			      	<p>In the playlist detail page, you can edit its labels and keywords. Mood and genre label can be chosen from your customised label list, while you can input any keywords you want.</p>
 			      	<p>Attention, all of them only support one word, and if you submit again, the old one will be replaced.</p>
+			      	 <img class="helpPicture" src="img/Help4.png">
 			      </div>
 			    </div>
 			  </div>
@@ -78,15 +81,16 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" 
-			          href="#collapseThree">
+			          data-target="#collapseFive">
 			          How to create and remove my customized labels?
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="collapseThree" class="panel-collapse collapse in">
+			    <div id="collapseFive" class="panel-collapse collapse">
 			      <div class="panel-body">
 			       	<p>Click "Edit labels" in the menu, you can set your own label list. Input your favourite mood and genre and click "submit", it will be added to the list and will show in the homepage too.</p>
 			       	<p>Click the existing labels, it will be removed from the list.</p>
+			       	 <img class="helpPicture" src="img/Help5.png">
 			      </div>
 			    </div>
 			  </div>
@@ -99,30 +103,24 @@
 	<div class="col-md-4">
 		<form action="" method="post" class="STYLE-NAME">
 		<h4>Contact Us</h4>
-		<span>Please fill all the texts in the fields.</span>
+		<span>If you have any question or suggestion about this application, please feel free to email us.</span>
+		<hr>
 		<label>
-			<span>Your Name :</span>
-			<input id="name" type="text" name="name" placeholder="Your Full Name" />
+			<span>Mikael Juntti<span>
+			<br>
+			<a ng-href="mjuntti@kth.se">mjuntti@kth.se</a>
 		</label>
+		<hr>
 		<label>
-			<span>Your Email :</span>
-			<input id="email" type="email" name="email" placeholder="Valid Email Address" />
+			<span>Yingjie Liang<span>
+			<br>
+			<a ng-href="yingjiel@kth.se">yingjiel@kth.se</a>
 		</label>
+		<hr>
 		<label>
-			<span>Message :</span>
-			<textarea id="message" name="message" placeholder="Your Message to Us"></textarea>
-		</label>
-		<label>
-			<span>Subject :</span>
-			<select name="selection">
-				<option value="Bug">Bug Report</option>
-				<option value="Cooperation">Cooperation</option>
-				<option value="General Question">General Question</option>
-			</select>
-		</label>
-		<label>
-			<span>&nbsp;</span>
-			<input type="button" class="button" value="Send" />
+			<span>Ziying Zhang<span>
+			<br>
+			<a ng-href="ziying@kth.se">ziying@kth.se</a>
 		</label>
 		</form>
 	</div>
