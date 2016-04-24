@@ -418,5 +418,8 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 	float: right;
 }
 .Username{
-	margin-right: 80px;
+	margin-right: 20px;
+}
+.helpPicture{
+	width:100%;
 }
