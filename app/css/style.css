@@ -353,7 +353,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 	line-height: 16px;
 }
 
-
+/*Bootstrap*/
 .btn-default{
 	background: none;
 	border: 2px solid white;
@@ -369,4 +369,54 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
     font-size: 14px;
     line-height: 1.5;
     border-radius: 5px;
+}
+/* Add a dark background color with a little bit see-through */ 
+.navbar {
+    margin-bottom: 20px;
+    background-color: #000000;
+    border: none;
+    border-bottom: white solid 1px;
+    border-radius: 0;
+    font-family: Arial;
+    font-size: 14px ;
+    letter-spacing: 1px;
+
+    opacity: 0.9;
+    width: 100%;
+}
+
+/* Add a gray color to all navbar links */
+.navbar li a, .navbar .navbar-brand { 
+    color: white ;
+}
+
+
+/* Remove border color from the collapsible button */
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+/* Dropdown */
+.open .dropdown-toggle {
+    color: #fff ;
+    background-color: #555 ;
+}
+
+/* Dropdown links */
+.dropdown-menu li a {
+    color: #000 ;
+}
+
+/* On hover, the dropdown links will turn red */
+.dropdown-menu li a:hover {
+    background-color: red;
+}
+.glyphicon{
+	margin-right: 7px;
+}
+.F-right{
+	float: right;
+}
+.Username{
+	margin-right: 80px;
 }
