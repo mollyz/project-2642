@@ -19,6 +19,22 @@ this.getUserPlaylists = function(){
         });
     }
 
+/*this.searchPlaylists = function(query) {
+    console.log("search playlisssttssss"+query)
+    return $http({
+      method: 'GET',
+      url: 'https://api.spotify.com/v1/search?q='+query+'&type=playlist&market=SE',
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function successCallback(response) {
+      console.log("PLAYLISTMODEL > searchPlaylist");
+      var data2 = response.data;
+      console.log(data2);
+      return data2;
+    }, function errorCallback(response) {
+        console.log("some kind of errrorororororor");
+      });
+    }
+*/
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
@@ -36,10 +52,6 @@ this.getUserPlaylists = function(){
       $("#results-suggested").html("<span class='header-style1'>You might also like: </span><br />");
       for (key in sgPlaylists){
        var sgPlaylist = sgPlaylists[key];
-           /* for (key in playlist.images){
-              var image = playlist.images[key]
-              console.log(image.url);
-            }*/
             $("#results-suggested").append("<div class='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"/"+sgPlaylist.name+"'><div class='playlist-div-details'>"+sgPlaylist.name+"</div></a></div>");
           }
 
