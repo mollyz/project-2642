@@ -129,4 +129,32 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist) {
   $scope.getAllPlaylists(Playlist.getUserId());
 
 
+  $scope.labels=["Energetic","Romantic","Chill","Sleepy","Party","Peaceful","Spiritual","Angry","Happy"];
+
+  $scope.mood = [{text: "Energetic", weight: 13, handlers: {click: function() {$scope.searchGenreMood("Energetic");}}},
+  {text: "Romantic", weight: 10.5, handlers: {click: function() {$scope.searchGenreMood("Romantic");}}},
+  {text: "Chill", weight: 9.4, handlers: {click: function() {$scope.searchGenreMood("Chill");}}},
+  {text: "Sleepy", weight: 8, handlers: {click: function() {$scope.searchGenreMood("Sleepy");}}},
+  {text: "Party", weight: 6.2, handlers: {click: function() {$scope.searchGenreMood("Party");}}},
+  {text: "Peaceful", weight: 5, handlers: {click: function() {$scope.searchGenreMood("Peaceful");}}},
+  {text: "Spiritual", weight: 4, handlers: {click: function() {$scope.searchGenreMood("Spiritual");}}},
+  {text: "Angry", weight: 3, handlers: {click: function() {$scope.searchGenreMood("Angry");}}},
+  {text: "Happy", weight: 2, handlers: {click: function() {$scope.searchGenreMood("Happy");}}}
+  ];
+
+  $scope.genre = [{text: "Rock", weight: 13, handlers: {click: function() {$scope.searchGenreMood("Rock");}}},
+  {text: "Pop", weight: 10.5, handlers: {click: function() {$scope.searchGenreMood("Pop");}}},
+  {text: "Electro", weight: 9.4, handlers: {click: function() {$scope.searchGenreMood("Electro");}}},
+  {text: "Acoustic", weight: 8, handlers: {click: function() {$scope.searchGenreMood("Acoustic");}}},
+  {text: "Punk", weight: 6.2, handlers: {click: function() {$scope.searchGenreMood("Punk");}}},
+  {text: "House", weight: 5, handlers: {click: function() {$scope.searchGenreMood("House");}}},
+  {text: "Metal", weight: 4, handlers: {click: function() {$scope.searchGenreMood("Metal");}}},
+  {text: "Dubstep", weight: 3, handlers: {click: function() {$scope.searchGenreMood("Dubstep");}}},
+  {text: "Other", weight: 2, handlers: {click: function() {$scope.searchGenreMood("Other");}}}
+  ];
+
+  $scope.colors = ["#00e600","#00cc00", "#00b300", "#009900", "#008000",  "#006600","#004d00" ];
+  // $scope.colors = ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976"];
+    
+
 });
