@@ -6,13 +6,12 @@
         </div>
         <div class="col-md-6" id="search-genres">
         </div>
-        <form>
+        <form ng-submit="searchKeywords(keywords)">
 		<div class="form-group">
-            <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword(s)">
+             <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword and press ENTER">
       	</div>
       	</form>
 	</div>
 	<div class="col-md-12 col-sm-12" id="results"></div>
 	<div class="col-md-12" id="results-suggested"></div>
-
 </div>
