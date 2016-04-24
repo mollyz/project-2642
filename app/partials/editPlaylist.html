@@ -7,11 +7,11 @@
 
     <div class="container" ng-controller="EditPlaylistCtrl">
 
-        <div class="col-md-1">
+        <div class="col-md-2">
             <div>
                 <a href="#search" class="btn btn-default btn-xs">Go Back</a>
             </div>
-            <br>
+            <hr>
             <div class="sideList">
                 <div ng-repeat="item in playlistArrow">
                     <a ng-href="#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}">
@@ -63,7 +63,7 @@
             </form>
         </div>
             
-        <div class="col-md-8 playlistview">
+        <div class="col-md-7 playlistview">
            <span class="editplaylist-title">{{playlistName}}</span>
             <span id="follow-button-span">
         </div>

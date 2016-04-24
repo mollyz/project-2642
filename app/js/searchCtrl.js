@@ -155,13 +155,13 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist) {
 
   $scope.colors = ["#00e600","#00cc00", "#00b300", "#009900", "#008000",  "#006600","#004d00" ];
   // $scope.colors = ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976"];
-    
+  
 
 
   // var dataset=[];
   // for(key in $scope.labels){
     
-   //  dataset[key]={text: $scope.labels[key], weight: 0.4,handlers: {click: function(){$scope.searchGenreMood($scope.labels[key]);}} };
+  //   dataset[key]={text: $scope.labels[key], weight: 0.4,handlers: {click: function(){$scope.searchGenreMood($scope.labels[key]);}} };
     
   // }  
   // $scope.words = dataset;

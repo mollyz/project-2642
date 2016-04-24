@@ -175,6 +175,7 @@ body{
 	max-height:500px;}
 }
 
+
 .hwq2button {  
     display: inline-block;  
     zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
@@ -241,11 +242,13 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 
 
 .playlistPic{
-    width: 60%;
+    width: 60% auto;
+    max-height:100px;
 
 }
 .playlistPic:hover{
-    width: 90%;
+    width: 90% auto;
+    max-height:140px;
 }
 
 
@@ -348,4 +351,22 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 	display:block;
 	font-size:12px;
 	line-height: 16px;
+}
+
+
+.btn-default{
+	background: none;
+	border: 2px solid white;
+	color: white;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: white;
+    background-color: #85BC00;
+    border-color: white;
+}
+.btn-xs{
+	padding: 6px 22px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 5px;
 }
