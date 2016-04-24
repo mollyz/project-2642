@@ -46,6 +46,36 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	}
 
+	$scope.getUserLabels = function(labeltype){
+	var userId = Playlist.getUserId();
+    console.log("getaUSERID "+userId);
+    $.ajax({
+      type: 'POST',
+      url: 'getlabels.php',
+      dataType: 'json',
+      data: {UserId:userId, LabelType: labeltype},
+      success: function(result){
+      	console.log("getUSERLABELSLELJAFLASLFJLA");
+        if(labeltype=='mood'){
+          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
+          for(key in result){
+            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
+          }
+          $compile($el)($scope);
+        }else if(labeltype=='genre'){
+          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
+          for(key in result){
+          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
+          }
+          $compile($el)($scope);
+        }
+      },
+      error: function(){
+        console.log("GETUSERLABELSERROR!");
+      }
+    });
+  }
+
 	//follow playlist button
 	$scope.followPlaylist = function(){
 		console.log("followplaylist...");
@@ -76,22 +106,29 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	$scope.getMeta = function(playlistId){
 		var id=$scope.playlistId;
+		var userid = Playlist.getUserId();
+		console.log("PLaylistID: "+id);
 		$.ajax({
 			type: 'POST',
 			url: 'getplaylist.php',
 			dataType: 'json',
-			data: {Id:id},
+			data: {Id:id, UserId:userid},
 			success: function(result){
 				var data=result;
 				$scope.mood=result.mood;
 				$scope.genre=result.genre;
-				$scope.keywords=result.keywords;
+				$scope.savedkeywords=result.keywords;
 				console.log("META: "+result);
+				console.log(result);
+
 
 			},
 			error: function(){
-				$scope.mood="No meta found!";
-				$scope.genre="No meta found!";
+				console.log("SOME KIND OF ERROR");
+				$scope.mood="Add a mood!";
+				$scope.genre="Add a genre!";
+				$scope.savedkeywords="Add some keywords!";
+
 			}
 		});
 	}
@@ -121,6 +158,9 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		});
 
 	}
+
+	$scope.getUserLabels('mood');
+	$scope.getUserLabels('genre');
 	$scope.getMeta($scope.playlistId);
 	$scope.getTracks($scope.playlistId);
 	$scope.checkIfFollowed();
