@@ -60,6 +60,9 @@ playlistApp.config(['$routeProvider',
         templateUrl: 'partials/editLabels.html',
         controller: 'EditLabelsCtrl'
       }).
+         when('/help', {
+        templateUrl: 'partials/help.html',
+      }).
 
       // TODO in Lab 5: add more conditions for the last two screens (overview and preparation)
       otherwise({
