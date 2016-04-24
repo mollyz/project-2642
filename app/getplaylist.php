@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 if ($id){
 	//RETURNS THE ROW FOR A SPECIFIC ID
-	$sql = "SELECT * FROM playlist WHERE id='$id'";
+	$sql = "SELECT * FROM pl_".$userid."_playlists WHERE id='$id'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 	    while($row = $result->fetch_assoc()) {

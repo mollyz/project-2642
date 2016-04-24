@@ -21,11 +21,11 @@
             <jqcloud words="genre" width="500" height="350" colors="{{colors}}" delay="10" steps="7" font-size="{from:0.10, to:0.04}"></jqcloud></span>
 
         </div>
-        <form>
-		<div class="form-group">
-            <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword(s)">
-      	</div>
-      	</form>
+        <form ng-submit="searchKeywords(keywords)">
+        <div class="form-group">
+             <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword and press ENTER">
+        </div>
+        </form>
 	</div>
 	<div class="col-md-12 col-sm-12" id="results"></div>
 	<div class="col-md-12" id="results-suggested"></div>

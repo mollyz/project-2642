@@ -24,18 +24,14 @@
         
         <div class="col-md-3">
             <h2>Edit playlist</h2>
-                <p>MOOD: {{mood}}</p>
-                <br>
-                <p>GENRE: {{genre}}</p>
-            <hr>
             <form method="GET">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
-                    <input type="text" class="form-control" ng-model="keywords" placeholder="Keywords">
+                     <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                    <input type="text" class="form-control" ng-model="keywords" placeholder="{{savedkeywords}}">
                 </div>
                 <div class="form-group">
                     <label>Select a mood: </label>
-                    <select class="form-control" ng-model="moodList">
+                    <select class="form-control" id="mood-select" ng-model="moodList">
                         <option value="" disabled>{{mood}}</option>
                         <option value="energetic">Energetic</option>
                         <option value="romantic">Romantic</option>
@@ -46,8 +42,8 @@
                 </div>
                 <div class="form-group">
                     <label>Select a genre: </label>
-                    <select class="form-control" ng-model="genreList" title="please select">
-                        <option data-hidden="true"></option>
+                    <select class="form-control" id="genre-select" ng-model="genreList" title="please select">
+                        <option value="" disabled>{{genre}}</option>
                         <option value="rock">Rock</option>
                         <option value="pop">Pop</option>
                         <option value="electro" selected>Electro</option>

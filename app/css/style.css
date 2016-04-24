@@ -44,8 +44,23 @@ body{
 .currentLink{
 	background-color: #00bb00;
 	color:#fff;
-};
+}
+.span-moods-remove{
+	background-color: #000;
+	display: inline-block;
+	margin:2px;
+	padding:5px;
+	font-weight:bold;
+	font-size: 18px;
+	color:#555;
+}
 
+.span-moods-remove:hover{
+	color:#660000;
+	background-color: #ff0000;
+
+	cursor:pointer;
+}
 /*
 .div-edited{
 	background-color: yellow;
