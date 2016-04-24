@@ -264,6 +264,15 @@ body{
 	color:#424242;
     background-color:#ededed;
     border-radius:5px;
+}
 
+#title{
+	font-size:36px;
+}
 
+#clearOption{
+	float:right;
+	display:block;
+	font-size:12px;
+	line-height: 16px;
 }

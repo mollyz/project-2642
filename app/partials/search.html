@@ -1,7 +1,12 @@
 <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 <div class="container" ng-controller="SearchCtrl">
 	<div class="col-md-12" class="home">
-		<h3>Filter playlists</h3>
+      <div>
+          <span id="title">Filter playlists</span>
+          <span id="clearOption"><a class="btn btn-primary" onclick="location.reload()">Clear option</a></span>
+      </div>
+      <br>
+   
         <div class="col-md-6" id="search-moods">
         </div>
         <div class="col-md-6" id="search-genres">
