@@ -6,7 +6,10 @@ include 'db-login.php';
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
-$id = $_POST['UserId'];
+//$id = $_POST['UserId'];
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$id = $request->UserId;
 //$id = "ledzappa";
 
 
@@ -32,7 +35,7 @@ $sql = "CREATE TABLE IF NOT EXISTS pl_$id"."_playlists". "(
 //echo $sql;
 
 if (mysqli_query($conn, $sql)) {
-    echo "Playlist-table created!";
+    echo "Playlist-table created! ".$id;
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
