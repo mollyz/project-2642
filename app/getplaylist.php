@@ -1,14 +1,15 @@
 <?php
 include 'db-login.php';
-//$info = '000003 03030303 030303030 030303030 030303030';
-//$info = $_POST['Result'];
-//$name = $_POST['Name'];
-//$antalkassa = $_POST['Antalkassa'];
 
-$id = $_POST['Id'];
-$userid = $_POST['UserId'];
+//$id = $_POST['Id'];
+//$userid = $_POST['UserId'];
 //$userid = "ledzappa";
 //echo "SELECT id FROM pl_".$userid."_playlists";
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$id = $request->Id;
+$userid = $request->UserId;
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
