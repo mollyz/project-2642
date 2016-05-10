@@ -5,7 +5,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var playlists = [];
 
 
-this.getUserPlaylists = function(){
+  this.getUserPlaylists = function(){
     return $http({
       method: 'GET',
       url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
@@ -19,22 +19,6 @@ this.getUserPlaylists = function(){
         });
     }
 
-/*this.searchPlaylists = function(query) {
-    console.log("search playlisssttssss"+query)
-    return $http({
-      method: 'GET',
-      url: 'https://api.spotify.com/v1/search?q='+query+'&type=playlist&market=SE',
-      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
-    }).then(function successCallback(response) {
-      console.log("PLAYLISTMODEL > searchPlaylist");
-      var data2 = response.data;
-      console.log(data2);
-      return data2;
-    }, function errorCallback(response) {
-        console.log("some kind of errrorororororor");
-      });
-    }
-*/
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
@@ -58,6 +42,9 @@ this.getUserPlaylists = function(){
           return result.items;
         }
       });
+  }
+  this.getAllPlaylists=function(){
+    return playlists;
   }
 
     //get playlist from an array with id's created in the search-ctrl
@@ -88,12 +75,26 @@ this.getUserPlaylists = function(){
         // this callback will be called asynchronously
         // when the response is available
         var data = response.data;
-        var name = data.display_name;
+        //var images = data.images;
+        console.log(data);
+        console.log("new version");
+        //var name = data.display_name;
+        //if(typeof images == 'Object'){
+        //  var imageurl = images.url;
+        //} else {
+        // var imageurl = 'http://www.mikaeljuntti.se/app/img/user.png';
+        //}
+        var imageurl = 'http://www.mikaeljuntti.se/app/img/user.png';
+        if(data.display_name == null){
+          var name = 'Unknown user';
+        } else {
+          var name = data.display_name;;
+        }
         var userData = [];
-        console.log("image url "+data.images[0].url);
-        userData.push(data.id,data.display_name,data.images[0].url);
+        //console.log("image url "+imageurl);
+        userData.push(data.id,name,imageurl);
         $cookieStore.put("userData", userData);
-        return data;
+        return userData;
         }, function errorCallback(response) {
           console.log("gick åt hvete");
         // called asynchronously if an error occurs
@@ -162,7 +163,19 @@ this.getUserPlaylists = function(){
     return userId;
   }
 
-
+  //Gets the accesstoken from the API and returns it
+  this.returnToken = function(data){
+    return $http({
+    url: 'requesttoken.php',
+    method: 'POST',
+    data: data
+    }).then(function(response){
+      var result = response.data;
+      console.log("Access token: "+result.access_token);
+      this.setAccessToken(result.access_token);
+      return result.access_token;
+    })
+}
 
   return this;
 

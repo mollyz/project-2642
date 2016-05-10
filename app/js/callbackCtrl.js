@@ -5,31 +5,21 @@ playlistApp.controller('CallbackCtrl', function ($scope,Playlist,$location,$http
   //CONSTRUCTS A QUERY-STRING TO PASS TO THE SPOTIFY AUTORIZATION SERVCE
   //IN ORDER TO RETRIEVE THE AUTHORIZATION TOKEN
   $scope.getQuerystring = function () {
-  	console.log("getQueryString");
-  	var grant_type = "authorization_code";
-  	var code = Playlist.getQueryString('code');
-  	var uri = 'http://www.mikaeljuntti.se/app/index.html#/callback';
+    console.log("getQueryString");
+    var grant_type = "authorization_code";
+    var code = Playlist.getQueryString('code');
+    var uri = 'http://www.mikaeljuntti.se/app/index.html#/callback';
     var redirect_uri = encodeURIComponent(uri);
-  	console.log("CODE: "+code);
-  	$http({
-    url: 'requesttoken.php',
-    method: 'POST',
-    data: {Grant_type:grant_type,Code:code,Redirect_uri:redirect_uri}
-    }).then(function SuccessCallback(response){
-      var result = response.data;
-      console.log("Access token: "+result.access_token);
-      Playlist.setAccessToken(result.access_token);
-      $scope.access_token = result.access_token;
-      Playlist.getUserData().then(function(data){
-        var array = data;
-        console.log(array);
-        console.log(array[0]);
-        $scope.userinfo=array[0];
-        $scope.createDatabase($scope.userinfo);
-        $location.path("/search");
-      });
-    }, function errorCallback(response){
-      console.log("some kind of error");
+    console.log("CODE: "+code);
+    $scope.access_token = Playlist.returnToken({Grant_type:grant_type,Code:code,Redirect_uri:redirect_uri});
+
+    Playlist.getUserData().then(function(data){
+      var array = data;
+      console.log(array);
+      console.log(array[0]);
+      $scope.userinfo=array[0];
+      $scope.createDatabase($scope.userinfo);
+      $location.path("/search");
     });
   }
 
