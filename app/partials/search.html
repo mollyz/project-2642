@@ -8,26 +8,43 @@
       <br>
    
         <div class="col-md-6" id="search-moods">
+          <span class="span-label">Select mood:</span>
+          <span class="span-moods" ng-repeat="item in moodLabel" ng-click="searchGenreMood({{item.mood}})")>{{item.mood}}</span>
         </div>
         <div class="col-md-6" id="search-genres">
+          <span class="span-label">Select genre:</span>
+          <span class="span-moods" ng-repeat="item in genreLabel" ng-click="searchGenreMood({{item.genre}})")>{{item.genre}}</span>
         </div>
         
-        <div class="col-md-6" >
-
-            <jqcloud words="mood" width="500" height="350" colors="{{colors}}" delay="10" steps="7" font-size="{from:0.10, to:0.04}"></jqcloud></span>
-        </div>
-        <div class="col-md-6" >
-
-            <jqcloud words="genre" width="500" height="350" colors="{{colors}}" delay="10" steps="7" font-size="{from:0.10, to:0.04}"></jqcloud></span>
-
-        </div>
         <form ng-submit="searchKeywords(keywords)">
         <div class="form-group">
              <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword and press ENTER">
         </div>
         </form>
 	</div>
-	<div class="col-md-12 col-sm-12" id="results"></div>
-	<div class="col-md-12" id="results-suggested"></div>
+
+	<div class="col-md-12" id="results">
+    <span class='header-style1'>Your playlists:</span>
+    <br/>
+    <div class="playlist-div" ng-repeat="item in yourPlaylist" style="background-image: url({{playlist.images.url}});">
+      <a href="#/playlist/{{playlist.id}}/{{playlist.owner.id}}/{{playlist.name}}">
+        <div class="box-container">
+          {{playlist.images}}
+          {{playlist.name}}
+        </div>
+      </a>
+    </div>
+    <div class="playlist-div-details" ng-repeat="iteam in editedPlaylist">  
+      <a href="#/playlist/{{playlist.id}}/{{playlist.owner.id}}/{{playlist.name}}">
+        <span>{{playlist.name}}</span>
+        <br/>
+        <span="tracks" style="font-size:26px;font-weight:bold" > {{playlist.tracks.total}} Tracks!</span>
+        <div class="div-edited" style="background-color: yellow; margin-top: 162px; margin-left: 83px; position: absolute; width:5px; height:5px; border-width: 1px; border-color: #000; border-radius: 5px;">
+        </div>
+      </a>
+    </div>
+
+	<div class="col-md-12" id="results-suggested">
+  </div>
 
 </div>
