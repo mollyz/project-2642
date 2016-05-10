@@ -4,6 +4,31 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var userName = "";
   var playlists = [];
 
+this.returnToken = function(data){
+    return $http({
+    url: 'requesttoken.php',
+    method: 'POST',
+    data: data
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      console.log("Access token: "+result.access_token);
+      this.setAccessToken(result.access_token);
+      return result.access_token;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 this.getUserPlaylists = function(){
     return $http({
@@ -19,24 +44,7 @@ this.getUserPlaylists = function(){
         });
     }
 
-/*this.searchPlaylists = function(query) {
-    console.log("search playlisssttssss"+query)
-    return $http({
-      method: 'GET',
-      url: 'https://api.spotify.com/v1/search?q='+query+'&type=playlist&market=SE',
-      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
-    }).then(function successCallback(response) {
-      console.log("PLAYLISTMODEL > searchPlaylist");
-      var data2 = response.data;
-      console.log(data2);
-      return data2;
-    }, function errorCallback(response) {
-        console.log("some kind of errrorororororor");
-      });
-    }
-*/
-  //searches for "global"-playlists that we can suggest to the user
-  //the queryparameter holds the selected mood and genre "energetic rock" for example
+
   this.searchPlaylists = function(query) {
     console.log("search playlisssttssss"+query)
     $.ajax({
