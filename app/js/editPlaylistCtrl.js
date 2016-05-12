@@ -210,8 +210,8 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		});*/
 	
 
-	$scope.getUserLabels('mood');
-	$scope.getUserLabels('genre');
+  	$scope.getUserLabels(Playlist.getUserId(),"mood");
+  	$scope.getUserLabels(Playlist.getUserId(),"genre");
 	$scope.getMeta($scope.playlistId);
 	//$scope.getTracks($scope.playlistId);
 	$scope.checkIfFollowed();
