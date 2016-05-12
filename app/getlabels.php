@@ -5,9 +5,9 @@ include 'db-login.php';
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
-$userid = $_POST['UserId'];
+$userid = $request->UserId;
 //$userid = "ledzappa";
-$label = $_POST['LabelType'];
+$label = $request->LabelType;
 //$label = "genre";
 
 //echo "SELECT id FROM pl_".$userid."_playlists";

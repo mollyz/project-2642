@@ -50,116 +50,105 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	}
 
 	$scope.getUserLabels = function(labeltype){
-	var userId = Playlist.getUserId();
-    console.log("getaUSERID "+userId);
-    $.ajax({
-      type: 'POST',
-      url: 'getlabels.php',
-      dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype},
-      success: function(result){
-      	console.log("getUSERLABELSLELJAFLASLFJLA");
-        if(labeltype=='mood'){
-          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
-          for(key in result){
-            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
-          }
-          $compile($el)($scope);
-        }else if(labeltype=='genre'){
-          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
-          for(key in result){
-          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
-          }
-          $compile($el)($scope);
-        }
-      },
-      error: function(){
-        console.log("GETUSERLABELSERROR!");
-      }
-    });
-  }
+		var userId = Playlist.getUserId();
+	    console.log("getaUSERID "+userId);
+	    $http({
+	      method: 'POST',
+	      url: 'getlabels.php',
+	      dataType: 'json',
+	      data: {UserId:userId, LabelType: labeltype}
+		}).then(function successCallback(result){
+	     	console.log("getUSERLABELSLELJAFLASLFJLA");
+	        if(labeltype=='mood'){
+	          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
+	          for(key in result){
+	            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }else if(labeltype=='genre'){
+	          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
+	          for(key in result){
+	          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }
+		},function errorCallback(result) {
+			console.log("GETUSERLABELSERROR!");
+		});
+	}
+
 
 	//follow playlist button
 	$scope.followPlaylist = function(){
 		console.log("followplaylist...");
-		$.ajax({
+		$http({
       	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
       	method: 'PUT',
       	headers: {
-       'Authorization': 'Bearer ' + Playlist.getAccessToken()
-     	},
-     	success: function(result){
-			$scope.checkIfFollowed();
-	        }
-      });	
-	}
+       		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
+     	}).then(function SuccessCallback(result){
+     		$scope.checkIfFollowed();
+     	});
+ 	}
+     	
+     
 
 	$scope.unfollowPlaylist = function(){
 		console.log("unfollowplaylist...");
-		$.ajax({
+		$http({
       	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
       	method: 'DELETE',
       	headers: {
-       'Authorization': 'Bearer ' + Playlist.getAccessToken()
-     	},
-     	success: function(result){
-			$scope.checkIfFollowed();        }
-      });
+       		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
+       	}),then(function SuccessCallback(result){
+			$scope.checkIfFollowed();        
+      	});
 	}
 
 	$scope.getMeta = function(playlistId){
 		var id=$scope.playlistId;
 		var userid = Playlist.getUserId();
 		console.log("PLaylistID: "+id);
-		$.ajax({
-			type: 'POST',
+		$.http({
+			method: 'POST',
 			url: 'getplaylist.php',
 			dataType: 'json',
 			data: {Id:id, UserId:userid},
-			success: function(result){
+			}),then(function SuccessCallback(result){
 				var data=result;
 				$scope.mood=result.mood;
 				$scope.genre=result.genre;
 				$scope.savedkeywords=result.keywords;
 				console.log("META: "+result);
 				console.log(result);
-
-
-			},
-			error: function(){
+			},function errorCallback(result){
 				console.log("SOME KIND OF ERROR");
 				$scope.mood="Add a mood!";
 				$scope.genre="Add a genre!";
 				$scope.savedkeywords="Add some keywords!";
+			});
+		}
 
-			}
-		});
-	}
-
-	$scope.getPlayer = function(playlistId,playlistUserId){
+	/*$scope.getPlayer = function(playlistId,playlistUserId){
 		$("#player-div").html("");
 		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
 		$("#player-div").append(playerHtml);
-	}
+	}*/
 
 	$scope.insert = function(id,mood,genre,keywords){
 		var id=$scope.playlistId;
 		var userId=Playlist.getUserId();
 		console.log("insert "+userId);
-		$.ajax({
-			type: 'POST',
+		$http({
+			method: 'POST',
 			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId},
-			success: function(result){
+			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
+		}).then(function SuccessCallback(result){
 				alert("saved!");
 				location.reload();
-			},
-			error: function(){
+			},function errorCallback(result){
 				alert('error saving order');
-			}
-
-		});
-
+			});
 	}
 
 	$scope.getUserLabels('mood');
@@ -168,7 +157,6 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	$scope.getTracks($scope.playlistId);
 	$scope.checkIfFollowed();
 	$scope.getPlayer($scope.playlistId,$scope.playlistUserId);
-
 
 
 });

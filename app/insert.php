@@ -5,12 +5,11 @@ include 'db-login.php';
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
-$id = $_POST['Id'];
-$mood = $_POST['Mood'];
-$genre = $_POST['Genre'];
-$keywords = $_POST['Keywords'];
-$userId = $_POST['UserId'];
-
+$id = $request->Id;
+$mood =$request->Mood;
+$genre = $request->Genre;
+$keywords = $request->Keywords;
+$userid = $request->UserId;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
