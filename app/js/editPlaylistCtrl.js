@@ -18,30 +18,30 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	}*/
 
 	$scope.getUserLabels = function(userId,labeltype){
-    $scope.userLabel="";
-    Playlist.getUserLabels(userId,labeltype)
-	.then(function SuccessCallback(response){
-      var result = response.data;
-      if(labeltype=='mood'){
-          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
-          for(key in result){
-            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
-          }
-          $compile($el)($scope);
-        }else if(labeltype=='genre'){
-          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
-          for(key in result){
-          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
-          }
-          $compile($el)($scope);
-        }
-    }, function errorCallback(response){
-      console.log("ERROR!");
-    });
-  }
+    	$scope.userLabel="";
+    	Playlist.getUserLabels(userId,labeltype)
+		.then(function SuccessCallback(result){
+	      console.log(result);
+	      if(labeltype=='mood'){
+	          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
+	          for(key in result){
+	            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }else if(labeltype=='genre'){
+	          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
+	          for(key in result){
+	          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }
+	    }, function errorCallback(response){
+	      console.log("ERROR!");
+	    });
+	  }
 
 
-	//CHECKS IF THERE IS ANY META ATTACHED TO THE PLAYLIST IN THE DATABASE
+/*	//CHECKS IF THERE IS ANY META ATTACHED TO THE PLAYLIST IN THE DATABASE
 	$scope.getMeta = function(playlistId){
 		var id=$scope.playlistId;
 		var userid = Playlist.getUserId();
@@ -89,6 +89,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
       		console.log("An error occured: getMeta");
     	});
     }
+    */
 
 	//CHECKS IF THERE IS ANY META ATTACHED TO THE PLAYLIST IN THE DATABASE
 	$scope.getMeta = function(playlistId){
