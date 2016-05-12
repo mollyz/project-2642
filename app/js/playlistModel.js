@@ -4,33 +4,8 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var userName = "";
   var playlists = [];
 
-this.returnToken = function(data){
-    return $http({
-    url: 'requesttoken.php',
-    method: 'POST',
-    data: data
-    }).then(function SuccessCallback(response){
-      var result = response.data;
-      console.log("Access token: "+result.access_token);
-      this.setAccessToken(result.access_token);
-      return result.access_token;
-    }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-this.getUserPlaylists = function(){
+  this.getUserPlaylists = function(){
     return $http({
       method: 'GET',
       url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
@@ -44,7 +19,8 @@ this.getUserPlaylists = function(){
         });
     }
 
-
+  //searches for "global"-playlists that we can suggest to the user
+  //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
     console.log("search playlisssttssss"+query)
     $.ajax({
@@ -71,23 +47,7 @@ this.getUserPlaylists = function(){
     return playlists;
   }
 
-    //get playlist from an array with id's created in the search-ctrl
-    //the id's are taken from the database, this in order to display
-    //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
-    this.getPlaylist = function(idArray,genre) {
-    //console.log(idArray);
-    $("#results").html("<span class='header-style1'>Your playlists tagged as "+genre+":</span><br />");
-    console.log("getPLaylist: "+playlists);
-    for (key in playlists){
-       var playlist = playlists[key];
-       if(jQuery.inArray(playlist.id, idArray) !== -1)
-           /* for (key in playlist.images){
-              var image = playlist.images[key]
-              console.log(image.url);
-            }*/
-            $("#results").append("<div class='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><div class='playlist-div-details'>"+playlist.name+"</div></a></div>");
-          }
-  }
+    
 
       //gets user info of the current user
       this.getUserData = function(){
@@ -96,15 +56,27 @@ this.getUserPlaylists = function(){
           url: 'https://api.spotify.com/v1/me',
           headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
         }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
         var data = response.data;
-        var name = data.display_name;
+        //var images = data.images;
+        console.log(data);
+        console.log("new version");
+        //var name = data.display_name;
+        //if(typeof images == 'Object'){
+        //  var imageurl = images.url;
+        //} else {
+        // var imageurl = 'http://www.mikaeljuntti.se/app/img/user.png';
+        //}
+        var imageurl = 'http://www.mikaeljuntti.se/app/img/user.png';
+        if(data.display_name == null){
+          var name = 'Unknown user';
+        } else {
+          var name = data.display_name;;
+        }
         var userData = [];
-        console.log("image url "+data.images[0].url);
-        userData.push(data.id,data.display_name,data.images[0].url);
+        //console.log("image url "+imageurl);
+        userData.push(data.id,name,imageurl);
         $cookieStore.put("userData", userData);
-        return data;
+        return userData;
         }, function errorCallback(response) {
           console.log("gick åt hvete");
         // called asynchronously if an error occurs
@@ -145,11 +117,11 @@ this.getUserPlaylists = function(){
 
   }
 
-  this.setAccessToken = function(token){
+  /*this.setAccessToken = function(token){
     accessToken = token;
     $cookieStore.put("accesstoken", token);
     console.log("accesstoken set");
-  };
+  };*/
 
   this.setPlaylists = function(array){
     playlists = array;
@@ -173,6 +145,110 @@ this.getUserPlaylists = function(){
     return userId;
   }
 
+  //Gets the accesstoken from the API and returns it
+  this.setAccessToken = function(data){
+    console.log("model-setaccesstoken");
+    return $http({
+    url: 'requesttoken.php',
+    method: 'POST',
+    data: data
+    }).then(function(response){
+      var result = response.data;
+      console.log(result);
+      console.log("Access token: "+result.access_token);
+      accessToken = result.access_token;
+      $cookieStore.put("accesstoken", result.access_token);
+      return result.access_token;
+    })
+  }
+  //11:44
+  this.createDatabase = function(userId) {
+    $http({
+      url: 'createdatabase.php',
+      method: 'POST',
+      data: {UserId:userId}
+    }).then(function SuccessCallback(response){
+      console.log("Database created!" + response.data)
+    }, function errorCallback(response){
+      console.log("Error setting up Database!");
+    });
+  }
+  //13:41
+  this.searchGenreMood = function(query){
+    var userId = this.getUserId();
+    return $http({
+      method: 'POST',
+      url: 'getplaylistfromgenre.php',
+      data: {Query:query, UserId:userId}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      console.log("result");
+      console.log(result);
+      return result;
+    },function errorCallback(response){
+      console.log("An error occured");
+    });
+  }
+
+  //get playlist from an array with id's created in the search-ctrl
+    //the id's are taken from the database, this in or der to display
+    //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
+    this.getPlaylist = function(idArray) {
+    console.log("getPLaylist: "+playlists);
+    for (key in playlists){
+       var playlist = playlists[key];
+       if(jQuery.inArray(playlist.id, idArray) !== -1)
+            $("#results").append("<div class='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><div class='playlist-div-details'>"+playlist.name+"</div></a></div>");
+          }
+  }
+  
+
+
+  this.checkIfFollowed = function(playlistid){
+    console.log("checkiffollowplaylist...");
+
+    return $http({
+        url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists/'+playlistid+'/followers/contains?ids='+getUserId(),
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+      }).then(function successCallback(response){
+          result = response.data;
+          console.log(response.data);
+          return result;
+        }, function errorCallback(response) {
+          console.log("gick åt hvete");
+        });
+
+  }
+
+    this.followPlaylist = function(playlistid){
+    return $http({
+      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists/'+playlistid+'/followers',
+      method: 'PUT',
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function SuccessCallback(response){
+      result = response.data;
+      console.log(response.data);
+      return result;
+      }, function errorCallback(response){
+          console.log("ERROR! editplaylistctrl>followplaylist");
+      });
+  }
+
+  //UNFOLLOWS A PLAYLIST
+  this.unfollowPlaylist = function(playlistid){
+    return $http({
+      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists/'+playlistid+'/followers',
+      method: 'DELETE',
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function SuccessCallback(response){
+      result = response.data;
+      console.log(response.data);
+      return result;
+    }, function errorCallback(response){
+          console.log("An error occured");
+      });
+  }
 
 
   return this;
