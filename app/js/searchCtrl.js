@@ -7,8 +7,8 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
     console.log("addingclass");
 });
 
-  //search function that searches by genre OR mood (query)
-  //gets all the playlists from the backend with the corresponding mood/genre
+  //search function that searches by genre OR mood (query-parameter)
+  //and gets all the playlist-id's from the backend with the corresponding mood/genre
   $scope.searchGenreMood = function(query){
     console.log("SearchGenreMood");
     var userId = Playlist.getUserId();
@@ -34,7 +34,8 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
     });
   }
 
-  //SEARCHES FOR USERS PLAYLIST WITH A KEYWORD AS PARAMETER
+  //search function that searches by keywords (query-parameter)
+  //and gets all the playlist-id's from the backend with the corresponding keyword
   $scope.searchKeywords = function(query){
       var userId = Playlist.getUserId();
       console.log(query);
@@ -60,10 +61,10 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
       })
     }
 
-  //gets all playlists that the user HAS ADDED META to
-  //and put them in an array, then compares the array to
-  //an array containing ALL THE USERS PLAYLISTS in order to
-  //know where to put the "edited" marker. Then we're generating
+  //gets all playlists that the user has added meta data to
+  //and puts them in an array. Then compares the array to
+  //an array containing all the users playlists that the user is following in order to
+  //know where to put the "edited" marker (yellow circle beneath the playlists). Then we're generating
   //the output html where we also add ng-directives for slide-animations.
   $scope.getAllPlaylists = function(userId){
     console.log("getaUSERID "+userId);
@@ -93,7 +94,7 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
         }
         var $el = $("#results").append("<a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><div class='playlist-div' style='background-image: url("+playlist.images[0].url+");'><div class='box-container' ng-mouseover='slideUp($event)' ng-mouseout='slideDown($event)'></div>"+editedhtml+"<div class='playlist-div-details'>"+playlist.name+" <br/><span='tracks' style='font-size:26px; font-weight:bold'>"+playlist.tracks.total+" Tracks!</span></div></div></a>");
       }
-        //since we are generating ng-directives dynamically we have to use $compile
+      //since we are generating ng-directives dynamically we have to use $compile
       $compile($el)($scope); 
     }, function errorCallback(response){
         console.log("An error occurred");
@@ -101,17 +102,17 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
     })
   }
 
-
-  //gets the user-specific labels from the backend
+  //gets the mood and genre labels that the user has created
+  //in the application. 
   $scope.getUserLabels = function(userId,labeltype){
-    console.log("getaUSERID "+userId);
-    $.ajax({
-      type: 'POST',
+    console.log("getUserLabels: "+userId);
+    $http({
+      method: 'POST',
       url: 'getlabels.php',
-      dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype},
-      success: function(result){
-        if(labeltype=='mood'){
+      data: {UserId:userId, LabelType: labeltype}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      if(labeltype=='mood'){
           $("#search-moods").html('<span class="span-label">Select mood:</span>');
           for(key in result){
             var $el = $("#search-moods").append('<span class="span-moods" ng-click="searchGenreMood('+"'"+result[key].mood+"'"+')">'+result[key].mood+'</span>');
@@ -124,11 +125,9 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
           }
           $compile($el)($scope);
         }
-      },
-      error: function(){
-        console.log("ERROR!");
-      }
-    });
+    }, function errorCallback(response){
+      console.log("ERROR!");
+    })
   }
 
   //some nice animations using jQuery.animate()
@@ -137,7 +136,6 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
     console.log("slide");
     var a = jQuery($event.target)
     console.log(a.parent());
-    //a.parent().find('.playlist-div-details').css('margin-top', '0px');
     a.parent().find('.playlist-div-details').animate({'margin-top': '0px'}, 150);
   }
     $scope.slideDown = function($event){
