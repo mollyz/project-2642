@@ -57,8 +57,9 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	      url: 'getlabels.php',
 	      dataType: 'json',
 	      data: {UserId:userId, LabelType: labeltype}
-		}).then(function successCallback(result){
+		}).then(function successCallback(response){
 	     	console.log("getUSERLABELSLELJAFLASLFJLA");
+	     	var result = response.data;
 	        if(labeltype=='mood'){
 	          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
 	          for(key in result){
@@ -72,7 +73,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	          }
 	          $compile($el)($scope);
 	        }
-		},function errorCallback(result) {
+		},function errorCallback(response) {
 			console.log("GETUSERLABELSERROR!");
 		});
 	}
@@ -86,7 +87,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
       	method: 'PUT',
       	headers: {
        		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
-     	}).then(function SuccessCallback(result){
+     	}).then(function SuccessCallback(response){
      		$scope.checkIfFollowed();
      	});
  	}
@@ -100,7 +101,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
       	method: 'DELETE',
       	headers: {
        		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
-       	}),then(function SuccessCallback(result){
+       	}),then(function SuccessCallback(response){
 			$scope.checkIfFollowed();        
       	});
 	}
@@ -114,14 +115,15 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			url: 'getplaylist.php',
 			dataType: 'json',
 			data: {Id:id, UserId:userid},
-			}),then(function SuccessCallback(result){
+			}),then(function SuccessCallback(response){
+				var result = response.data;
 				var data=result;
 				$scope.mood=result.mood;
 				$scope.genre=result.genre;
 				$scope.savedkeywords=result.keywords;
 				console.log("META: "+result);
 				console.log(result);
-			},function errorCallback(result){
+			},function errorCallback(response){
 				console.log("SOME KIND OF ERROR");
 				$scope.mood="Add a mood!";
 				$scope.genre="Add a genre!";
@@ -143,10 +145,10 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			method: 'POST',
 			url: 'insert.php',
 			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
-		}).then(function SuccessCallback(result){
+		}).then(function SuccessCallback(response){
 				alert("saved!");
 				location.reload();
-			},function errorCallback(result){
+			},function errorCallback(response){
 				alert('error saving order');
 			});
 	}
