@@ -17,14 +17,10 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		});
 	}*/
 
-	$scope.getUserLabels = function(labeltype){
-	var userId = Playlist.getUserId();
-    console.log("getaUSERID "+userId);
-    $http({
-      method: 'POST',
-      url: 'getlabels.php',
-      data: {UserId:userId, LabelType: labeltype}
-    }).then(function SuccessCallback(response){
+	$scope.getUserLabels = function(userId,labeltype){
+    $scope.userLabel="";
+    Playlist.getUserLabels(userId,labeltype)
+	.then(function SuccessCallback(response){
       var result = response.data;
       if(labeltype=='mood'){
           $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
@@ -158,42 +154,45 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	$scope.checkIfFollowed = function(playlistId){
 		var id= $scope.playlistId;
-		Playlist.checkIfFollowed(id).then(function successCallback(response){
-			result = response.data;
-        	console.log(response.data);
-        	if (response.data=="true"){
+		var ownerId=$scope.playlistUserId;
+		Playlist.checkIfFollowed(id,ownerId).then(function successCallback(result){
+			console.log("11111111111111111111");
+        	console.log(result);
+        	if (result=="true"){
         		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#006633; color:#fff" ng-click="unfollowPlaylist()">Followed</button>');
         		$compile($el)($scope);
-          	} else if (response.data=="false") {
+          	} else if (result=="false") {
           		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#000" ng-click="followPlaylist()">Follow</button>');
         		$compile($el)($scope);
           	}
-        	}, function errorCallback(response) {
+        	}, function errorCallback(result) {
           		console.log("gick åt hvete");
-      			console.log(response);
-			}
+      			console.log(result);
+			});
 		}
 
 	$scope.followPlaylist = function(playlistId){
 		var id= $scope.playlistId;
-		Playlist.followPlaylist(id).then(function successCallback(response){
-			result = response.data;
-        	console.log(response.data);
+		var ownerId=$scope.playlistUserId;
+		Playlist.followPlaylist(id,ownerId).then(function successCallback(result){
+        	console.log("1111111111111111111122222222222");
+        	console.log(result);
         	$scope.checkIfFollowed(id); 
-        }, function errorCallback(response){
+        }, function errorCallback(result){
           console.log("ERROR! editplaylistctrl>followplaylist");
-      	}
+      	});
       }
 
 	$scope.unfollowPlaylist = function(playlistId){
 		var id= $scope.playlistId;
-		Playlist.unfollowPlaylist(id).then(function successCallback(response){
-			result = response.data;
-        	console.log(response.data);
+		var ownerId=$scope.playlistUserId;
+		Playlist.unfollowPlaylist(id,ownerId).then(function successCallback(result){
+        	console.log("111111111111111111112222222222233333333");
+        	console.log(result);
         	$scope.checkIfFollowed(id); 
-        }, function errorCallback(response){
+        }, function errorCallback(result){
           console.log("ERROR! editplaylistctrl>followplaylist");
-      	}
+      	});
       }
 
 		/*$.ajax({
