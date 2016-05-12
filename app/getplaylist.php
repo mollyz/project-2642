@@ -1,15 +1,10 @@
 <?php
 include 'db-login.php';
 
-//$id = $_POST['Id'];
-//$userid = $_POST['UserId'];
-//$userid = "ledzappa";
-//echo "SELECT id FROM pl_".$userid."_playlists";
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $id = $request->Id;
 $userid = $request->UserId;
-
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
@@ -27,7 +22,7 @@ if ($id){
 	    while($row = $result->fetch_assoc()) {
 	    	echo json_encode($row);}
 	} else {
-	    echo "0 results";}
+	    echo "zeroResults";}
 
 } else {
 	//RETURNS ALL THE ID's IN THE DB
@@ -43,6 +38,5 @@ if ($id){
 	    echo json_encode($error);
 	}
 }
-
 
 ?>
