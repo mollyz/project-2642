@@ -1,9 +1,10 @@
 <?php
 include 'db-login.php';
 
-$userId = $_POST['UserId'];
-$removeLabel = $_POST['RemoveLabel'];
-$labelType = $_POST['LabelType'];
+$userId = $request->UserId;
+
+$removeLabel = $request->RemoveLabel;
+$labelType = $request->LabelType;
 
 //$userId = 'ledzappa';
 //$removeLabel = 'test';

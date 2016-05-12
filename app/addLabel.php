@@ -7,9 +7,9 @@ include 'db-login.php';
 
 //$mood = $_POST['Mood'];
 //$genre = $_POST['LabelType'];
-$userId = $_POST['UserId'];
-$newLabel = $_POST['NewLabel'];
-$labelType = $_POST['LabelType'];
+$userid = $request->UserId;
+$newLabel = $request->NewLabel;
+$labelType = $request->LabelType;
 
 //$userId = 'ledzappa';
 //$newLabel = 'test';
