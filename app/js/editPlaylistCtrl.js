@@ -3,6 +3,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	$scope.playlistId = $routeParams.playlistId;
 	$scope.playlistUserId = $routeParams.playlistUserId;
   	$scope.playlistName = $routeParams.playlistName;
+
   	
 
   	Playlist.getUserPlaylists()
@@ -17,6 +18,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   	console.log($scope.playlistArrow);
   	console.log("nicaiwoshishuidssssssssss");
   	console.log("nicaiwoshishuidssssssssss");
+
 
 	var isFollowed = "";
 
@@ -58,9 +60,15 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			$scope.genre=result.genre;
 			$scope.savedkeywords=result.keywords;
 			if(result=='zeroResults'){
+<<<<<<< HEAD
 				$scope.mood="";
 				$scope.genre="";
 				$scope.savedkeywords="Add a keywords!";
+=======
+				$scope.mood="Add a mood!";
+				$scope.genre="";
+				$scope.savedkeywords="";
+>>>>>>> origin/master
 			}
 		}, function errorCallback(response){
       		console.log("An error occured: getMeta");
@@ -69,11 +77,13 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	}
 
 	$scope.getPlayer = function(playlistId,playlistUserId){
+
 		$scope.playerUrl=$sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:user:"+playlistUserId+":playlist:"+playlistId);
 		
 		// $("#player-div").html("");
 		// playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
 		// $("#player-div").append(playerHtml);
+
 	}
 
 	//FIX HTTP
@@ -100,6 +110,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
         });
 
 	}
+
 
 	$scope.followPlaylist = function(playlistId){
 		var id= $scope.playlistId;
