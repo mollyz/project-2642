@@ -1,18 +1,11 @@
 playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval,$compile,$http,Playlist) {
 
-  // TODO in Lab 5: you will need to implement a method that searchers for dishes
-  // including the case while the search is still running.
-
-$scope.getUserLabels = function(userId,labeltype){
-    console.log("getaUSERID "+userId);
-    $http({
-      method: 'POST',
-      url: 'getlabels.php',
-      dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype}
-    }).then(function SuccessCallback(response){
-      var result = response.data;
-        if(labeltype=='mood'){
+   $scope.getUserLabels = function(userId,labeltype){
+      $scope.userLabel="";
+      Playlist.getUserLabels(userId,labeltype)
+      .then(function SuccessCallback(result){
+      console.log(result);
+      if(labeltype=='mood'){
           $("#addLabel-moods").html('');
           for(key in result){
             var $el = $("#addLabel-moods").append('<span class="span-moods-remove" ng-click="removeLabel('+"'mood','"+result[key].mood+"'"+')">'+result[key].mood+'</span>');
@@ -25,41 +18,39 @@ $scope.getUserLabels = function(userId,labeltype){
           }
           $compile($el)($scope);
         }
-      },function errorCallback(response){
-        console.log("ERROR!");
-      });
+    }, function errorCallback(response){
+      console.log("ERROR!");
+    });
   }
 
   $scope.addLabel = function(labelType,newLabel){
+    console.log("addlabel" )
     var userId = Playlist.getUserId();
-    $http({
-      method: 'POST',
-      url: 'addLabel.php',
-      data: {UserId:userId, LabelType: labelType, NewLabel: newLabel}
-    }).then(function successCallback(response){
-        alert('Label added!');
-        location.reload();
-    },function errorCallback(response) {
-        console.log("ERROR!");
+    Playlist.addLabel(labelType,newLabel)
+    .then(function SuccessCallback(response){
+      var result = response.data;
+      alert('Label added!');
+      location.reload();
+    }, function errorCallback(response){
+      console.log("ERROR!");
     });
   }
-
-
+  
   $scope.removeLabel = function(labelType,removeLabel){
     console.log("removelabel" + labelType + " " + removeLabel)
     var userId = Playlist.getUserId();
-    $http({
-      method: 'POST',
-      url: 'removeLabel.php',
-      data: {UserId:userId, LabelType: labelType, RemoveLabel: removeLabel},
-    }),.then(function successCallback(response){
-        alert('Label removed!');
-        location.reload();
-    },function errorCallback(response){
-        console.log("ERROR!");
+    Playlist.removeLabel(labelType,removeLabel)
+    .then(function SuccessCallback(response){
+      alert('Label removed!');
+      location.reload();
+    }, function errorCallback(response){
+      console.log("ERROR!");
     });
   }
 
+
+
   $scope.getUserLabels(Playlist.getUserId(),"mood");
   $scope.getUserLabels(Playlist.getUserId(),"genre");
+
 });
