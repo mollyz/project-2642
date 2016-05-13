@@ -296,7 +296,6 @@ this.checkIfFollowed = function(playlistid,ownerId){
         return result;
     });
 
-
   }
   this.getMeta = function(id,userid){
     return $http({
